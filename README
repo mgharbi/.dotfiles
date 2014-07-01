@@ -1,0 +1,29 @@
+Dotfiles - Michael Gharbi <gharbi@mit.edu>
+------------------------------------------
+
+* Clone the repository as ~/.dotfiles then make symlinks to its content from the
+user directory.
+
+
+* Fork oh-my-zsh, snipmate and others for customizations
+
+* Installing vim/bundle/command-t:
+    = requires vim compiled with ruby support e.g. homebrew version
+    - cd vim/bundle/command-t
+    - bundle install
+    - rake make
+
+* For iterm2, set 'Load preferences from a custom folder or URL' to
+'/Users/username/.dotfiles/iterm2_settings/'
+
+* Adding a sub-repository: git submodule add {url} {local_path}; git submodule
+init; git submodule update
+
+* Clang-complete requires the Clang compiler
+
+* Jedi-Vim for Python requires: pip install jedi
+
+
+TODO: 
+   - Create a symlink script
+

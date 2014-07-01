@@ -1,0 +1,5 @@
+settings set prompt \033[31m(lldb) \033[0m
+
+settings set thread-format "\033[34mthread #${thread.index}\033[0m: tid = ${thread.id}{, ${frame.pc}}{ ${module.file.basename}{`${function.name-with-args} ${function.pc-offset}}}{ at ${line.file.basename}:${line.number}} {, name = '${thread.name}}{, queue = '${thread.queue}} {, stop reason = \033[31m${thread.stop-reason}\033[0m} {\nReturn value: ${thread.return-value}}\033[0m\n"
+
+settings set frame-format "\033[33mframe #${frame.index}\033[0m: ${frame.pc}{ \033[34m${module.file.basename}\033[33m{`${function.name-with-args}\033[0m${function.pc-offset}}}{ at \033[33m${line.file.basename}:${line.number}\033[0m}\n"

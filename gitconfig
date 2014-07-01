@@ -1,0 +1,27 @@
+[core]
+	editor = vim
+[color]
+	ui = auto
+[user]
+	name = Michael Gharbi
+	email = gharbi@mit.edu
+[credential]
+	helper = osxkeychain
+[diff]
+	tool = vimdiff
+[merge]
+	tool = fugitive
+[difftool]
+	prompt = false
+[mergetool]
+	keepBackup = false
+[mergetool "fugitive"]
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+[alias]
+	logg = log --oneline --graph
+	st = status
+	ci = commit -a -m
+[alias]
+  rms = "!f(){ git rm --cached \"$1\";rm -r \"$1\";git config -f .gitmodules --remove-section \"submodule.$1\";git config -f .git/config --remove-section \"submodule.$1\";git add .gitmodules; }; f"
+[push]
+	default = matching

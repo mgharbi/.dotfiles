@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 2.8)
+project({$1:project_name})
+
+# No optimization, gdb-friendly, warnings
+set(CMAKE_CXX_FLAGS "-O0 -ggdb3 -Wall -std=c++0x")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+message("CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
+message("Compiler flags: ${CMAKE_CXX_FLAGS}")
+
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules")
+
+# Find external packages
+#find_package(Boost COMPONENTS system filesystem REQUIRED)
+
+# Directories
+set(src "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(bin "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+set(lib "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+set(inc "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${lib})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${lib})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${bin})
+
+add_subdirectory(${src})
