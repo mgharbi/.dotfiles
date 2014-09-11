@@ -1,12 +1,18 @@
 #!/usr/bin/python
 import sys, os, subprocess
 
+print "Installing dotfiles"
+print "-------------------\n"
+
 home_dir       = os.getenv("HOME")
 dotfiles_dir   = os.path.dirname(os.path.abspath(__file__))
 zsh_dir        = os.path.join(home_dir,".oh-my-zsh")
 vimplugins_dir = os.path.join(home_dir,".vimplugins")
 
+# Install homebrew and libraries
+
 if not os.path.exists(zsh_dir):
+    print "Installing Oh-My-Zsh..."
     r = subprocess.call([
         "git",
         "clone",
@@ -14,14 +20,17 @@ if not os.path.exists(zsh_dir):
         zsh_dir,
     ])
 if not os.path.exists(vimplugins_dir):
+    print "Installing Vundle.vim..."
     r = subprocess.call([
         "git",
         "clone",
         "https://github.com/gmarik/Vundle.vim.git",
         os.path.join(vimplugins_dir,"Vundle.vim"),
     ])
+
 link = os.path.join(dotfiles_dir,"vim","bundle")
 if not os.path.exists(link) and not os.path.islink(link):
+    print "Symlinking vim plugins..."
     os.symlink(vimplugins_dir,link)
 
 print "Creating symlinks..."
@@ -37,9 +46,8 @@ files = ["gdbinit",
      "scripts"]
 for f in files:
     link = os.path.join(home_dir,"."+f)
-    if os.path.exists(link) or os.path.islink(link):
-        print "  - %s already linked, skipping" % f
-    else:
+    if not os.path.exists(link) and not os.path.islink(link):
         os.symlink(os.path.join(dotfiles_dir,f),link)
         print "  + %s linked" % f
+
 
