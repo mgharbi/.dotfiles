@@ -115,10 +115,6 @@ if has("gui_running")
 else
     colorscheme mika
 endif
-" Highlight long lines:
-highlight OverLength ctermbg=darkred ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-
 
 " Setting up the undo/history 
 set history=1000
@@ -201,6 +197,7 @@ nnoremap <leader>l :TagbarToggle<CR>
 
 " Nerd Tree
 nnoremap <leader>r :NERDTreeToggle<CR>
+let NERDTreeIgnore = ['\.pyc$']
 
 " Gitv
 nnoremap <leader>g :Gitv<CR>
@@ -232,12 +229,8 @@ let g:indent_guides_auto_colors=1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
-
-""""""""""""""""""""""""""""""
-"Temporary settings
-""""""""""""""""""""""""""""""
+" Ignore these folders for fuzzy matching
 set wildignore=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**
 set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
-

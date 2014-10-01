@@ -63,9 +63,11 @@ alias cmm='nocorrect cmake .. ; make'
 alias gdb='gdb -q'
 alias db='lldb'
 # export FFLAGS=-ff2c
+# export CC="/usr/local/bin/gcc"
+# export CXX="/usr/local/bin/gcc"
 # export CMAKE_C_COMPILER=$CC
 # export CMAKE_CXX_COMPILER=$CXX
-export PATH="/Developer/NVIDIA/CUDA-5.5/bin":$PATH
+export PATH="/Developer/NVIDIA/CUDA-6.5/bin":$PATH
 # export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-5.5/lib":$DYLD_LIBRARY_PATH
 
 # Current Project

@@ -16,11 +16,12 @@
 [mergetool]
 	keepBackup = false
 [mergetool "fugitive"]
-	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+	cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
 [alias]
 	logg = log --oneline --graph
 	st = status
 	ci = commit -a -m
+	co = checkout
 [alias]
   rms = "!f(){ git rm --cached \"$1\";rm -r \"$1\";git config -f .gitmodules --remove-section \"submodule.$1\";git config -f .git/config --remove-section \"submodule.$1\";git add .gitmodules; }; f"
 [push]

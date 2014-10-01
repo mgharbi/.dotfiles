@@ -49,5 +49,3 @@ for f in files:
     if not os.path.exists(link) and not os.path.islink(link):
         os.symlink(os.path.join(dotfiles_dir,f),link)
         print "  + %s linked" % f
-
-

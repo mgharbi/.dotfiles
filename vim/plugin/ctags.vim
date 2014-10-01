@@ -10,18 +10,10 @@ let g:easytags_by_filetype = '~/.tags'
 let g:easytags_auto_highlight = 0
 
 " C++ specifics
-" if has('autocmd')
+if has('autocmd')
     autocmd Filetype cpp let g:easytags_cmd = '/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaSl --extra=+q'
-" endif
+endif
 
-" if has("autocmd") && exists("+omnifunc")
-"     autocmd Filetype *
-"         \if &omnifunc == "" |
-"         \setlocal omnifunc=syntaxcomplete#Complete |
-"         \endif
-" endif
-" Disable preview window
-set completeopt=menuone,menu,longest
 
 
 " Add custom tags

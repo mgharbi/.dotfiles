@@ -4,3 +4,7 @@
 
 !.gitkeep
 vim/ruby/
+vim/doc/*
+tags
+.VimballRecord
+vim/autoload
