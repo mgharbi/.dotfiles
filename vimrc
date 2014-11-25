@@ -104,6 +104,7 @@ set noerrorbells
 set ttyfast
 set lazyredraw
 set regexpengine=1
+set textwidth=0 wrapmargin=0
 
 
 " Color, syntax, etc

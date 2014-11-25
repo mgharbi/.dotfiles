@@ -63,12 +63,12 @@ alias cmm='nocorrect cmake .. ; make'
 alias gdb='gdb -q'
 alias db='lldb'
 # export FFLAGS=-ff2c
-# export CC="/usr/local/bin/gcc"
-# export CXX="/usr/local/bin/gcc"
-# export CMAKE_C_COMPILER=$CC
-# export CMAKE_CXX_COMPILER=$CXX
-export PATH="/Developer/NVIDIA/CUDA-6.5/bin":$PATH
-# export DYLD_LIBRARY_PATH="/Developer/NVIDIA/CUDA-5.5/lib":$DYLD_LIBRARY_PATH
+export CC="/usr/local/bin/gcc"
+export CXX="/usr/local/bin/g++"
+export CMAKE_C_COMPILER=$CC
+export CMAKE_CXX_COMPILER=$CXX
+export PATH="/usr/local/cuda/bin":$PATH
+# export DYLD_LIBRARY_PATH="/usr/local/cuda/lib":$DYLD_LIBRARY_PATH
 
 # Current Project
 alias motion='cd ~/Documents/motioncpp'
@@ -78,10 +78,6 @@ alias reading='cd ~/Documents/readings'
 alias photo='cd ~/Documents/photosite'
 alias splitsy='cd ~/Documents/splitsy'
 alias diary='cd ~/Documents/diary'
-
-# Code library
-export MGH_MATLAB_TOOLBOX=~/Documents/mgh_matlab_toolbox
-
 
 # vim snippets
 alias snip='cd ~/.dotfiles/vim/bundle/ultisnips/UltiSnips'
@@ -113,3 +109,8 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 # alias quote='vi ~/.fortunes/citations'
 # alias cquote='strfile ~/.fortunes/citations ~/.fortunes/citations.dat'
 # say
+
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/cuda/lib
+
+# Google Test
+export GTEST_DIR='/Users/mgharbi/Downloads/gtest/'
