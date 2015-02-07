@@ -8,3 +8,4 @@ thirdparty/**
 !.gitkeep
 .DS_Store
 *.pyc
+tags

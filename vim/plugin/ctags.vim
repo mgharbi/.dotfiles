@@ -1,24 +1,16 @@
 " CTAGS stuff
-set tags=./tags 
-let g:easytags_python_enable = 1
+set tags=./tags;
+let g:easytags_dynamic_files=2
 let g:easytags_include_members=1
-let g:easytags_dynamic_files = 2
 let g:easytags_cmd = '/usr/local/bin/ctags --fields=+l'
 let g:easytags_updatetime_warn=0
-let g:easytags_python_enabled = 1
-let g:easytags_by_filetype = '~/.tags'
-let g:easytags_auto_highlight = 0
+let g:easytags_python_enabled=1
+let g:easytags_auto_highlight=0
 
 " C++ specifics
 if has('autocmd')
     autocmd Filetype cpp let g:easytags_cmd = '/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaSl --extra=+q'
 endif
-
-
-
-" Add custom tags
-" set tags+=~/.tags/c_std
-" set tags+=~/.tags/cpp_opencv
 
 " Additional support
 let g:tagbar_type_markdown = {
