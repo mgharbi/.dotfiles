@@ -22,8 +22,3 @@ init; git submodule update
 * Clang-complete requires the Clang compiler
 
 * Jedi-Vim for Python requires: pip install jedi
-
-
-TODO: 
-   - Create a symlink script
-

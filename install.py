@@ -1,5 +1,6 @@
 #!/usr/bin/python
-import sys, os, subprocess
+import os
+import subprocess
 
 print "Installing dotfiles"
 print "-------------------\n"
@@ -49,3 +50,6 @@ for f in files:
     if not os.path.exists(link) and not os.path.islink(link):
         os.symlink(os.path.join(dotfiles_dir,f),link)
         print "  + %s linked" % f
+
+# Install vim bundles
+os.system('vim -c VundleInstall -c quitall')

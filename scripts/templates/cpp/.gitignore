@@ -1,0 +1,10 @@
+bin/**
+build/**
+data/**
+lib/**
+output/**
+thirdparty/**
+
+!.gitkeep
+.DS_Store
+*.pyc

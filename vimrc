@@ -1,14 +1,14 @@
-" ==== VIM CONFIG ====
-" M.Gharbi
-" gharbi@mit.edu
-" -------------------
+" --------------------------------------------------------------------------
+" File:    vimrc
+" Author:  Michael Gharbi <gharbi@mit.edu>
+" Created: 2015-01-22
+" --------------------------------------------------------------------------
+" 
+" Plugins maintenance and goodies
+" 
+" -------------------------------------------------------------------------"
 
 
-" Use pathogen to easily modify the runtime path to include all
-" plugins under the ~/.vim/bundle directory
-" execute pathogen#infect()
-" call pathogen#helptags()
-" call pathogen#runtime_append_all_bundles()
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -16,15 +16,11 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
+"
+" let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+" Plugins
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-haml'
 Plugin 'Valloric/YouCompleteMe'
@@ -39,13 +35,12 @@ Plugin 'mileszs/ack.vim'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'sjl/gundo.vim'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'jelera/vim-javascript-syntax'
 Plugin 'gerw/vim-latex-suite'
 Plugin 'tpope/vim-markdown'
 Plugin 'edsono/vim-matchit'
 Plugin 'vim-scripts/MatlabFilesEdition'
 Plugin 'scrooloose/nerdtree'
-Plugin 'benzheren/vim-python'
+Plugin 'klen/python-mode'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-ruby/vim-ruby'
@@ -57,17 +52,18 @@ Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/tComment'
-Plugin 'marijnh/tern_for_vim'
 Plugin 'mgharbi/ultisnips'
+Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'burnettk/vim-angular'
+Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
 Plugin 'altercation/vim-colors-solarized'
-
 Plugin 'git://git.wincent.com/command-t.git'
+call vundle#end()
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
 
 " General config
 set term=xterm-256color
@@ -83,47 +79,46 @@ set si                          " Smart indent
 set nowrap                      " Wrap lines
 set lbr                         " Linebreak on 500 characters
 set cursorline                  " highlight current line
-set autoindent
 set backspace=indent,eol,start	
 set cindent
 set cinkeys=0{,0},:,!^F,o,O,e	
 set fileformat=unix	            
 set listchars=tab:\ \ ,trail:�  
-set nobackup		            " Don't use a backup file (also see writebackup)
 set nojoinspaces	            " One space after a "." rather than 2
 set ruler		                " Show the line position at the bottom of the window
 set scrolloff=1		            " Minimum lines between cursor and window edge
 set showcmd		                " Show partially typed commands
 set showmatch		            " Show parentheses matching
 set smartindent		            " Indent settings (really only the cindent matters)
-set textwidth=80	           
 set viminfo='0,\"100,	        
-set writebackup		            " Write temporary backup files in case we crash
 set visualbell
 set noerrorbells
 set ttyfast
 set lazyredraw
+set textwidth=0 
+set wrapmargin=0
 set regexpengine=1
-set textwidth=0 wrapmargin=0
 
 
 " Color, syntax, etc
 syntax on                       " Use color syntax highlighting.
 filetype plugin on
 filetype indent on
-if has("gui_running")
-    colorscheme solarized
-else
-    colorscheme mika
-endif
+let g:solarized_termtrans = 1
+colorscheme solarized
+" togglebg#map("<leader>b")
+" if has("gui_running")
+"     colorscheme solarized
+" else
+"     colorscheme mika
+" endif
 
-" Setting up the undo/history 
+" Undo/history 
 set history=1000
 set undolevels=1000           
 set nobackup                    " seriously, use a VCS
 set nowritebackup
 set noswapfile                  " they are really annoying...
-
 
 "Search options
 nnoremap / /\v
@@ -189,6 +184,9 @@ set softtabstop=4
 " cmake
 autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
+" compile
+nnoremap <leader>m :!cd build && make<CR><CR>
+
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
 nmap Q gqap
@@ -225,13 +223,63 @@ vnoremap <leader>c<space> :TComment<CR>
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
 
-"IndenGuides
+"IndentGuides
 let g:indent_guides_auto_colors=1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
+
+autocmd BufRead,BufNewFile *.tex set  tw=80
 
 " Ignore these folders for fuzzy matching
 set wildignore=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**
 set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
+
+" Powerline
+let g:Powerline_symbols = 'fancy'
+" let g:Powerline_theme = 'solarized256'
+let g:Powerline_colorscheme = 'solarized256'
+set laststatus=2
+
+" Python
+" K             Show python docs
+" <Ctrl-Space>  Rope autocomplete
+" <Ctrl-c>g     Rope goto definition
+" <Ctrl-c>d     Rope show documentation
+" <Ctrl-c>f     Rope find occurrences
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 0
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+let g:pymode_lint = 0
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
+
+" Unbind run
+let g:pymode_run_bind = ''

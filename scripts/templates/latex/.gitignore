@@ -1,0 +1,7 @@
+build/**
+icons/**
+output/**
+images
+
+!.gitkeep
+.DS_Store

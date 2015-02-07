@@ -4,28 +4,24 @@ ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
 ZSH_THEME="mgharbi"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+alias snip='vi ~/.vimplugins/ultisnips/UltiSnips'
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-plugins=(osx git gem brew ruby rails rake python mgharbi)
+plugins=(osx git gem brew ruby rails rake python)
+
+alias vim="/usr/local/Cellar/macvim/7.4-73_1/bin/mvim -v"
+
+alias todo="vi $HOME/todo.md"
 
 source $ZSH/oh-my-zsh.sh
-export EDITOR=/usr/local/bin/vim
+export EDITOR=vim
 
 # PATH extension
 export PATH="/usr/local/bin":$PATH
 export PATH='/usr/local/sbin':$PATH
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
  
 # Python
 export WORKON_HOME=~/.virtualenvs
@@ -51,58 +47,40 @@ fi
 if (( $+commands[nosetests] )); then
     alias pytest=nosetests
 fi
-
-# Ruby
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
-
-# JS
-export NODE_PATH=/usr/local/lib/node_modules
+export PYTHONPATH=$PYTHONPATH:$HOME/mghlib
 
 # C related
 alias cmm='nocorrect cmake .. ; make'
 alias gdb='gdb -q'
 alias db='lldb'
-# export FFLAGS=-ff2c
+export FFLAGS=-ff2c
 export CC="/usr/local/bin/gcc"
 export CXX="/usr/local/bin/g++"
+export PATH="/usr/local/cuda/bin":$PATH
+export DYLD_LIBRARY_PATH="/usr/local/cuda/lib":$DYLD_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/cuda/lib
+
+# Cmake
 export CMAKE_C_COMPILER=$CC
 export CMAKE_CXX_COMPILER=$CXX
-export PATH="/usr/local/cuda/bin":$PATH
-# export DYLD_LIBRARY_PATH="/usr/local/cuda/lib":$DYLD_LIBRARY_PATH
+export CMAKE_PREFIX_PATH="/usr/local/Cellar/qt5/5.4.0":$CMAKE_PREFIX_PATH
 
-# Current Project
-alias motion='cd ~/Documents/motioncpp'
-alias timewarp='cd ~/Documents/timewarping'
-alias video='cd ~/Documents/videolapse'
-alias reading='cd ~/Documents/readings'
-alias photo='cd ~/Documents/photosite'
-alias splitsy='cd ~/Documents/splitsy'
+# CPP libs
+export EIGEN3_INCLUDE_DIR='/usr/local/Cellar/eigen/3.2.2/include/eigen3'
+export PNG_INCLUDE_DIR='/usr/local/Cellar/png++/0.2.5_1/include/png++'
+
+# Google Test
+export GTEST_DIR="$HOME/gtest/"
+
+# Current Projects
 alias diary='cd ~/Documents/diary'
-
-# vim snippets
-alias snip='cd ~/.dotfiles/vim/bundle/ultisnips/UltiSnips'
 
 # Zsh Help
 unalias run-help
 autoload run-help
 
 # Scripts binding
-alias new_proj='~/.scripts/project_template.rb'
-
-# FFMPEG
-function mkmov {
-    ffmpeg -i $1 -vcodec qtrle $2
-}
-function resizemov {
-    ffmpeg -i $1 -filter:v scale=$2:'trunc(ow/a/2)*2' $3
-}
-
-# Motion Comparison
-export PVL='/Users/mgharbi/Documents/particleVideo/ParticleVideoLib'
-export SBL='/Users/mgharbi/Documents/particleVideo/SimpleBaseLib'
-
-# Android
-export ANDROID_HOME=/usr/local/opt/android-sdk
+alias template='~/.scripts/project_template.py'
 
 # On startup quotations
 # alias say='fortune 50% literature 50% ~/.fortunes/ | cowsay'
@@ -110,7 +88,6 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 # alias cquote='strfile ~/.fortunes/citations ~/.fortunes/citations.dat'
 # say
 
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/cuda/lib
-
-# Google Test
-export GTEST_DIR='/Users/mgharbi/Downloads/gtest/'
+# Ruby
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+eval "$(rbenv init -)"
