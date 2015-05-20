@@ -10,8 +10,8 @@ class ProjectTemplate(object):
         if not os.path.exists(self.template):
             raise ValueError("template '%s' unavailable" % self.template)
 
-    def create(self):
-        if os.path.exists(self.root):
+    def create(self, inplace = False):
+        if not inplace and os.path.exists(self.root):
             print "Path \"%s\" already exists, aborting." % self.root
             return
         for dirpath,dirnames,filenames in os.walk(self.template):
@@ -25,9 +25,12 @@ class ProjectTemplate(object):
                     shutil.copy(src,trg)
 
 def main(type, name):
-    if len(name) >= 3:
+    if name == os.curdir or len(name) >= 3:
         template = ProjectTemplate(type, name)
-        template.create()
+        if name == os.curdir:
+            template.create(inplace = True)
+        else:
+            template.create()
     else:
         raise ValueError("invalid project name '%s', should have 3 characters or more" % name)
 
@@ -37,7 +40,7 @@ if __name__ == '__main__':
     templates = os.listdir(templates)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("type", help = "main language of the repo")
+    parser.add_argument("type", help = "project type", choices = templates)
     parser.add_argument("name", help = "name of the new project")
     args = parser.parse_args()
     main(args.type, args.name)

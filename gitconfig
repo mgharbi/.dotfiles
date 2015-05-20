@@ -1,7 +1,7 @@
 [core]
 	editor = vim
 [color]
-	ui = auto
+	ui = true
 [user]
 	name = Michael Gharbi
 	email = gharbi@mit.edu
@@ -18,7 +18,7 @@
 [mergetool "fugitive"]
 	cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
 [alias]
-	logg = log --oneline --graph
+	logg = log --oneline --graph --decorate
 	st = status
 	ci = commit -m
 	co = checkout

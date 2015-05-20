@@ -55,13 +55,14 @@ Plugin 'vim-scripts/tComment'
 Plugin 'mgharbi/ultisnips'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
-Plugin 'marijnh/tern_for_vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'burnettk/vim-angular'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'AndrewRadev/linediff.vim'
+
 call vundle#end()
 
 
@@ -106,12 +107,6 @@ filetype plugin on
 filetype indent on
 let g:solarized_termtrans = 1
 colorscheme solarized
-" togglebg#map("<leader>b")
-" if has("gui_running")
-"     colorscheme solarized
-" else
-"     colorscheme mika
-" endif
 
 " Undo/history 
 set history=1000
@@ -231,7 +226,7 @@ let g:indent_guides_guide_size=1
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
 " Ignore these folders for fuzzy matching
-set wildignore=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**
+set wildignore=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**,third_party/**
 set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
@@ -280,6 +275,9 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
+
+" Android
+let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/src/mobile_local/src/com/xform/mobile_local/bin/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
 
 " Unbind run
 let g:pymode_run_bind = ''

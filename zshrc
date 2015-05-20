@@ -16,6 +16,8 @@ alias vim="/usr/local/Cellar/macvim/7.4-73_1/bin/mvim -v"
 
 alias todo="vi $HOME/todo.md"
 
+alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
+
 source $ZSH/oh-my-zsh.sh
 export EDITOR=vim
 
@@ -54,26 +56,32 @@ alias cmm='nocorrect cmake .. ; make'
 alias gdb='gdb -q'
 alias db='lldb'
 export FFLAGS=-ff2c
-export CC="/usr/local/bin/gcc"
-export CXX="/usr/local/bin/g++"
-export PATH="/usr/local/cuda/bin":$PATH
-export DYLD_LIBRARY_PATH="/usr/local/cuda/lib":$DYLD_LIBRARY_PATH
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/cuda/lib
 
-# Cmake
-export CMAKE_C_COMPILER=$CC
-export CMAKE_CXX_COMPILER=$CXX
-export CMAKE_PREFIX_PATH="/usr/local/Cellar/qt5/5.4.0":$CMAKE_PREFIX_PATH
+# CLANG
+export LLVM_CONFIG=/Users/mgharbi/Downloads/clang36/bin/llvm-config
+export CLANG=/Users/mgharbi/Downloads/clang36/bin/clang
+
+# Clang OpenMP
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/lib
 
 # CPP libs
 export EIGEN3_INCLUDE_DIR='/usr/local/Cellar/eigen/3.2.2/include/eigen3'
 export PNG_INCLUDE_DIR='/usr/local/Cellar/png++/0.2.5_1/include/png++'
 
+# Cuda
+export CUDA_TOOLKIT_ROOT_DIR='/usr/local/cuda/'
+export PATH="/usr/local/cuda/bin":$PATH
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:'/usr/local/cuda/lib'
+
+# Android
+export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10d/"
+export ANDROID_SDK="/usr/local/Cellar/android-sdk/24.1.2/"
+
 # Google Test
 export GTEST_DIR="$HOME/gtest/"
 
 # Current Projects
-alias diary='cd ~/Documents/diary'
+alias diary='cd ~/Documents/projects/diary'
 
 # Zsh Help
 unalias run-help
@@ -82,11 +90,31 @@ autoload run-help
 # Scripts binding
 alias template='~/.scripts/project_template.py'
 
+# Projects shortcuts
+alias xform='cd ~/Documents/projects/xform'
+
+# Xform
+export XFORM_MOBILE='/Users/mgharbi/Documents/projects/xform_mobile/'
+export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide'
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
+
 # On startup quotations
 # alias say='fortune 50% literature 50% ~/.fortunes/ | cowsay'
 # alias quote='vi ~/.fortunes/citations'
 # alias cquote='strfile ~/.fortunes/citations ~/.fortunes/citations.dat'
 # say
+
+# Kinect
+export OPENNI2_INCLUDE=/usr/local/include/ni2
+export OPENNI2_REDIST=/usr/local/lib/ni2
+export NITE2_INCLUDE=/Users/mgharbi/Documents/projects/kinect/NiTE2/Include
+export NITE2_REDIST64=/Users/mgharbi/Documents/projects/kinect/NiTE2/Redist
+
+alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.compute-1.amazonaws.com'
+
+# Video_sync
+export VIDEO_SYNC="$HOME/Documents/projects/video_sync"
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$VIDEO_SYNC/lib"
 
 # Ruby
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
