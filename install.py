@@ -6,6 +6,7 @@ print "Installing dotfiles"
 print "-------------------\n"
 
 home_dir       = os.getenv("HOME")
+
 dotfiles_dir   = os.path.dirname(os.path.abspath(__file__))
 zsh_dir        = os.path.join(home_dir,".oh-my-zsh")
 vimplugins_dir = os.path.join(home_dir,".vimplugins")
