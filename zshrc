@@ -96,7 +96,7 @@ alias xform='cd ~/Documents/projects/xform'
 # Xform
 export XFORM_MOBILE='/Users/mgharbi/Documents/projects/xform_mobile/'
 export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide'
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
+# export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
 
 # On startup quotations
 # alias say='fortune 50% literature 50% ~/.fortunes/ | cowsay'

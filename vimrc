@@ -277,7 +277,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 " Android
-let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/src/mobile_local/src/com/xform/mobile_local/bin/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
+let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/bin/mobile_local/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
 
 " Unbind run
 let g:pymode_run_bind = ''
