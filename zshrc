@@ -6,13 +6,15 @@ ZSH_THEME="mgharbi"
 
 alias snip='vi ~/.vimplugins/ultisnips/UltiSnips'
 
+alias zrc='vi ~/.zshrc'
+alias vrc='vi ~/.vimrc'
+
 # Comment this out to disable weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 plugins=(osx git gem brew ruby rails rake python)
 
-alias vim="/usr/local/Cellar/macvim/7.4-73_1/bin/mvim -v"
 
 alias todo="vi $HOME/todo.md"
 
@@ -30,7 +32,7 @@ export WORKON_HOME=~/.virtualenvs
 export PROJECT_HOME=$HOME
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
-export PIP_REQUIRE_VIRTUALENV=true
+export PIP_REQUIRE_VIRTUALENV=false
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 syspip(){
     PIP_REQUIRE_VIRTUALENV="" pip "$@"
@@ -58,8 +60,8 @@ alias db='lldb'
 export FFLAGS=-ff2c
 
 # CLANG
-export LLVM_CONFIG=/Users/mgharbi/Downloads/clang36/bin/llvm-config
-export CLANG=/Users/mgharbi/Downloads/clang36/bin/clang
+export LLVM_CONFIG=$HOME/clang36/bin/llvm-config
+export CLANG=$HOME/clang36/bin/clang
 
 # Clang OpenMP
 export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/lib
@@ -78,14 +80,10 @@ export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10d/"
 export ANDROID_SDK="/usr/local/Cellar/android-sdk/24.1.2/"
 
 # Google Test
-export GTEST_DIR="$HOME/gtest/"
+export GTEST_DIR="$HOME/Documents/projects/third_party/gtest-1.7.0/"
 
 # Current Projects
 alias diary='cd ~/Documents/projects/diary'
-
-# Zsh Help
-unalias run-help
-autoload run-help
 
 # Scripts binding
 alias template='~/.scripts/project_template.py'
@@ -97,6 +95,11 @@ alias xform='cd ~/Documents/projects/xform'
 export XFORM_MOBILE='/Users/mgharbi/Documents/projects/xform_mobile/'
 export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide'
 # export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
+
+# Neural net
+export CAFFE='/Users/mgharbi/Documents/projects/third_party/caffe'
+export PATH="$CAFFE/build/tools":$PATH
+export PYTHONPATH="$CAFFE/python":$PYTHONPATH
 
 # On startup quotations
 # alias say='fortune 50% literature 50% ~/.fortunes/ | cowsay'
@@ -116,6 +119,9 @@ alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.c
 export VIDEO_SYNC="$HOME/Documents/projects/video_sync"
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$VIDEO_SYNC/lib"
 
+# Panda3D
+export PANDA="/Developer/Panda3D"
+
 # Ruby
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-eval "$(rbenv init -)"
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# eval "$(rbenv init -)"

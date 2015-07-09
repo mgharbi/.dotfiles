@@ -62,6 +62,8 @@ Plugin 'xolox/vim-misc'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'AndrewRadev/linediff.vim'
+Plugin 'uarun/vim-protobuf'
+Plugin 'jdevera/vim-protobuf-syntax'
 
 call vundle#end()
 
