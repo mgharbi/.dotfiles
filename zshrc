@@ -94,7 +94,7 @@ alias xform='cd ~/Documents/projects/xform'
 # Xform
 export XFORM_MOBILE='/Users/mgharbi/Documents/projects/xform_mobile/'
 export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide'
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
+# export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
 
 # Neural net
 export CAFFE='/Users/mgharbi/Documents/projects/third_party/caffe'
