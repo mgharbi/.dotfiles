@@ -1,4 +1,4 @@
-# Path to your oh-my-zsh configuration.
+#nd Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
@@ -76,11 +76,11 @@ export PATH="/usr/local/cuda/bin":$PATH
 export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:'/usr/local/cuda/lib'
 
 # Android
-export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10d/"
-export ANDROID_SDK="/usr/local/Cellar/android-sdk/24.1.2/"
+export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10e/"
+export ANDROID_SDK="/usr/local/Cellar/android-sdk/24.2/"
 
 # Google Test
-export GTEST_DIR="$HOME/Documents/projects/third_party/gtest-1.7.0/"
+export GTEST_ROOT="$HOME/Documents/projects/third_party/gtest-1.7.0/"
 
 # Current Projects
 alias diary='cd ~/Documents/projects/diary'
@@ -101,6 +101,8 @@ export CAFFE='/Users/mgharbi/Documents/projects/third_party/caffe'
 export PATH="$CAFFE/build/tools":$PATH
 export PYTHONPATH="$CAFFE/python":$PYTHONPATH
 
+export APONET_LOCAL=true
+
 # On startup quotations
 # alias say='fortune 50% literature 50% ~/.fortunes/ | cowsay'
 # alias quote='vi ~/.fortunes/citations'
@@ -118,9 +120,6 @@ alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.c
 # Video_sync
 export VIDEO_SYNC="$HOME/Documents/projects/video_sync"
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$VIDEO_SYNC/lib"
-
-# Panda3D
-export PANDA="/Developer/Panda3D"
 
 # Ruby
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

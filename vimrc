@@ -182,7 +182,7 @@ set softtabstop=4
 autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
-nnoremap <leader>m :!cd build && make<CR><CR>
+nnoremap <leader>m :!cd build && make<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
@@ -277,6 +277,8 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
+
+au BufRead,BufNewFile *.jinja set filetype=django
 
 " Android
 let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/bin/mobile_local/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
