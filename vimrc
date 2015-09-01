@@ -281,5 +281,8 @@ let g:pymode_folding = 0
 " Android
 let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/bin/mobile_local/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
 
+" Vertical vimdif
+set diffopt+=vertical
+
 " Unbind run
 let g:pymode_run_bind = ''
