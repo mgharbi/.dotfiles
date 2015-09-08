@@ -29,7 +29,6 @@ export PATH='/usr/local/sbin':$PATH
  
 # Python
 export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME=$HOME
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=false
@@ -59,9 +58,12 @@ alias gdb='gdb -q'
 alias db='lldb'
 export FFLAGS=-ff2c
 
+export PROJECTS=$HOME/Documents/projects
+export THIRDPARTY=$PROJECTS/third_party
+
 # CLANG
-export LLVM_CONFIG=$HOME/clang36/bin/llvm-config
-export CLANG=$HOME/clang36/bin/clang
+export LLVM_CONFIG=$THIRDPARTY/clang36/bin/llvm-config
+export CLANG=$THIRDPARTY/clang36/bin/clang
 
 # Clang OpenMP
 export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/lib
@@ -80,7 +82,7 @@ export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10e/"
 export ANDROID_SDK="/usr/local/Cellar/android-sdk/24.2/"
 
 # Google Test
-export GTEST_ROOT="$HOME/Documents/projects/third_party/gtest-1.7.0/"
+export GTEST_ROOT="$THIRDPARTY/gtest-1.7.0/"
 
 # Current Projects
 alias diary='cd ~/Documents/projects/diary'
@@ -89,15 +91,13 @@ alias diary='cd ~/Documents/projects/diary'
 alias template='~/.scripts/project_template.py'
 
 # Projects shortcuts
-alias xform='cd ~/Documents/projects/xform'
+alias xform="cd $PROJECTS/xform"
 
 # Xform
-export XFORM_MOBILE='/Users/mgharbi/Documents/projects/xform_mobile/'
-export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide'
-# export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
+export HALIDE="$THIRDPARTY/halide"
 
-# Neural net
-export CAFFE='/Users/mgharbi/Documents/projects/third_party/caffe'
+# Caffe
+export CAFFE="$THIRDPARTY/caffe"
 export PATH="$CAFFE/build/tools":$PATH
 export PYTHONPATH="$CAFFE/python":$PYTHONPATH
 
@@ -117,9 +117,8 @@ export NITE2_REDIST64=/Users/mgharbi/Documents/projects/kinect/NiTE2/Redist
 
 alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.compute-1.amazonaws.com'
 
-# Video_sync
-export VIDEO_SYNC="$HOME/Documents/projects/video_sync"
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$VIDEO_SYNC/lib"
+# Celery
+DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/lib
 
 # Ruby
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

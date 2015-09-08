@@ -64,6 +64,7 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'AndrewRadev/linediff.vim'
 Plugin 'uarun/vim-protobuf'
 Plugin 'jdevera/vim-protobuf-syntax'
+Plugin 'marijnh/tern_for_vim'
 
 call vundle#end()
 
