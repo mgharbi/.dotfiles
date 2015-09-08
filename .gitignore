@@ -9,3 +9,4 @@ vim/doc/*
 tags
 .VimballRecord
 vim/autoload
+vim/bundle
