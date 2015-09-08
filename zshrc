@@ -120,6 +120,9 @@ alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.c
 # Celery
 DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/lib
 
+if [[ -a $HOME/localenv.sh ]]; then
+    source $HOME/localenv.sh
+fi
 # Ruby
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # eval "$(rbenv init -)"
