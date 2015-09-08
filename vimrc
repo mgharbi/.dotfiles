@@ -43,8 +43,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'klen/python-mode'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/rubycomplete.vim'
+" Plugin 'vim-ruby/vim-ruby'
+" Plugin 'vim-scripts/rubycomplete.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'tristen/vim-sparkup'
 Plugin 'tpope/vim-surround'
@@ -286,6 +286,8 @@ let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_
 
 " Vertical vimdif
 set diffopt+=vertical
+
+set bg=dark
 
 " Unbind run
 let g:pymode_run_bind = ''
