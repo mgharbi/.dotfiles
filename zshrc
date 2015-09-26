@@ -51,7 +51,7 @@ fi
 if (( $+commands[nosetests] )); then
     alias pytest=nosetests
 fi
-export PYTHONPATH=$PYTHONPATH:$HOME/mghlib
+export PYTHONPATH=$PYTHONPATH:$HOME/pythonlibs
 
 # C related
 alias cmm='nocorrect cmake .. ; make'
@@ -73,7 +73,14 @@ export PNG_INCLUDE_DIR='/usr/local/Cellar/png++/0.2.5_1/include/png++'
 # Cuda
 export CUDA_TOOLKIT_ROOT_DIR='/usr/local/cuda/'
 export PATH="/usr/local/cuda/bin":$PATH
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:'/usr/local/cuda/lib'
+export LD_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:'/usr/local/cuda/lib64'
+
+# CSAIL visiongpu
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$HOME/custom_apps/lib"
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib"
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/cuda-7.0/lib64"
+# export PYTHONPATH=$PYTHONPATH:"/usr/local/lib"
+# export PYTHONPATH=$PYTHONPATH:"$HOME/custom_apps/lib"
 
 # Android
 export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10d/"
@@ -97,7 +104,7 @@ export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
 
 # Neural net
-export CAFFE='/Users/mgharbi/Documents/projects/third_party/caffe'
+export CAFFE="$HOME/projects/third_party/caffe"
 export PATH="$CAFFE/build/tools":$PATH
 export PYTHONPATH="$CAFFE/python":$PYTHONPATH
 
