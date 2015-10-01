@@ -5,8 +5,6 @@
 [user]
 	name = Michael Gharbi
 	email = gharbi@mit.edu
-[credential]
-	helper = osxkeychain
 [diff]
 	tool = vimdiff
 [merge]

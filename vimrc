@@ -66,6 +66,7 @@ Plugin 'AndrewRadev/linediff.vim'
 Plugin 'uarun/vim-protobuf'
 Plugin 'jdevera/vim-protobuf-syntax'
 Plugin 'marijnh/tern_for_vim'
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 
@@ -107,6 +108,7 @@ filetype plugin on
 filetype indent on
 let g:solarized_termtrans = 1
 colorscheme solarized
+set bg=dark
 
 " Undo/history 
 set history=1000

@@ -1,4 +1,4 @@
-#nd Path to your oh-my-zsh configuration.
+# Path to oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
@@ -15,10 +15,9 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 plugins=(osx git gem brew ruby rails rake python)
 
-
 alias localenv="vi $HOME/localenv.sh"
 alias todo="vi $HOME/todo.md"
-
+alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 source $ZSH/oh-my-zsh.sh
@@ -51,10 +50,8 @@ fi
 if (( $+commands[nosetests] )); then
     alias pytest=nosetests
 fi
-export PYTHONPATH=$PYTHONPATH:$HOME/mghlib
 
 # C related
-alias cmm='nocorrect cmake .. ; make'
 alias gdb='gdb -q'
 alias db='lldb'
 
@@ -67,12 +64,6 @@ alias template='~/.scripts/project_template.py'
 # alias cquote='strfile ~/.fortunes/citations ~/.fortunes/citations.dat'
 # say
 
-if [[ -a $HOME/localenv.sh ]]; then
-    source $HOME/localenv.sh
-fi
-# Ruby
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-eval "$(rbenv init -)"
 
 if [[ -a $HOME/localenv.sh ]]; then
     source $HOME/localenv.sh
