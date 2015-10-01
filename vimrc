@@ -43,8 +43,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'klen/python-mode'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/rubycomplete.vim'
+" Plugin 'vim-ruby/vim-ruby'
+" Plugin 'vim-scripts/rubycomplete.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'tristen/vim-sparkup'
 Plugin 'tpope/vim-surround'
@@ -64,6 +64,8 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'AndrewRadev/linediff.vim'
 Plugin 'uarun/vim-protobuf'
 Plugin 'jdevera/vim-protobuf-syntax'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 
@@ -183,7 +185,7 @@ set softtabstop=4
 autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
-nnoremap <leader>m :!cd build && make<CR><CR>
+nnoremap <leader>m :!cd build && make<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
@@ -279,8 +281,15 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
+au BufRead,BufNewFile *.jinja set filetype=django
+
 " Android
-let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/src/mobile_local/src/com/xform/mobile_local/bin/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
+let g:syntastic_java_javac_classpath = "/Users/mgharbi/Documents/projects/xform_mobile/bin/mobile_local/classes:/usr/local/Cellar/android-sdk/24.1.2/platforms/android-21/*.jar:/Users/mgharbi/Documents/projects/xform_mobile/gen/mobile_local"
+
+" Vertical vimdif
+set diffopt+=vertical
+
+set bg=dark
 
 " Unbind run
 let g:pymode_run_bind = ''

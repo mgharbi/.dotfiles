@@ -1,4 +1,4 @@
-# Path to your oh-my-zsh configuration.
+# Path to oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
@@ -15,9 +15,8 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 plugins=(osx git gem brew ruby rails rake python)
 
-
 alias todo="vi $HOME/todo.md"
-
+alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 source $ZSH/oh-my-zsh.sh
@@ -29,7 +28,6 @@ export PATH='/usr/local/sbin':$PATH
  
 # Python
 export WORKON_HOME=~/.virtualenvs
-export PROJECT_HOME=$HOME
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=false
@@ -51,62 +49,19 @@ fi
 if (( $+commands[nosetests] )); then
     alias pytest=nosetests
 fi
-export PYTHONPATH=$PYTHONPATH:$HOME/pythonlibs
 
 # C related
-alias cmm='nocorrect cmake .. ; make'
 alias gdb='gdb -q'
 alias db='lldb'
-export FFLAGS=-ff2c
 
-# CLANG
-export LLVM_CONFIG=$HOME/clang36/bin/llvm-config
-export CLANG=$HOME/clang36/bin/clang
-
-# Clang OpenMP
-export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/usr/local/lib
-
-# CPP libs
-export EIGEN3_INCLUDE_DIR='/usr/local/Cellar/eigen/3.2.2/include/eigen3'
-export PNG_INCLUDE_DIR='/usr/local/Cellar/png++/0.2.5_1/include/png++'
 
 # Cuda
 export CUDA_TOOLKIT_ROOT_DIR='/usr/local/cuda/'
 export PATH="/usr/local/cuda/bin":$PATH
 export LD_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:'/usr/local/cuda/lib64'
 
-# CSAIL visiongpu
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$HOME/custom_apps/lib"
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib"
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/cuda-7.0/lib64"
-# export PYTHONPATH=$PYTHONPATH:"/usr/local/lib"
-# export PYTHONPATH=$PYTHONPATH:"$HOME/custom_apps/lib"
-
-# Android
-export ANDROID_NDK="/usr/local/Cellar/android-ndk/r10d/"
-export ANDROID_SDK="/usr/local/Cellar/android-sdk/24.1.2/"
-
-# Google Test
-export GTEST_DIR="$HOME/Documents/projects/third_party/gtest-1.7.0/"
-
-# Current Projects
-alias diary='cd ~/Documents/projects/diary'
-
 # Scripts binding
 alias template='~/.scripts/project_template.py'
-
-# Projects shortcuts
-alias xform='cd ~/Documents/projects/xform'
-
-# Xform
-export XFORM_MOBILE='/Users/mgharbi/Documents/projects/xform_mobile/'
-export HALIDE='/Users/mgharbi/Documents/projects/xform_mobile/third_party/halide'
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$HALIDE/bin"
-
-# Neural net
-export CAFFE="$HOME/projects/third_party/caffe"
-export PATH="$CAFFE/build/tools":$PATH
-export PYTHONPATH="$CAFFE/python":$PYTHONPATH
 
 # On startup quotations
 # alias say='fortune 50% literature 50% ~/.fortunes/ | cowsay'
@@ -114,21 +69,8 @@ export PYTHONPATH="$CAFFE/python":$PYTHONPATH
 # alias cquote='strfile ~/.fortunes/citations ~/.fortunes/citations.dat'
 # say
 
-# Kinect
-export OPENNI2_INCLUDE=/usr/local/include/ni2
-export OPENNI2_REDIST=/usr/local/lib/ni2
-export NITE2_INCLUDE=/Users/mgharbi/Documents/projects/kinect/NiTE2/Include
-export NITE2_REDIST64=/Users/mgharbi/Documents/projects/kinect/NiTE2/Redist
-
 alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.compute-1.amazonaws.com'
 
-# Video_sync
-export VIDEO_SYNC="$HOME/Documents/projects/video_sync"
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"$VIDEO_SYNC/lib"
-
-# Panda3D
-export PANDA="/Developer/Panda3D"
-
-# Ruby
-# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-# eval "$(rbenv init -)"
+if [[ -a $HOME/localenv.sh ]]; then
+    source $HOME/localenv.sh
+fi

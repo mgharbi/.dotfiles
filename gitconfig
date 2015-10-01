@@ -14,7 +14,7 @@
 [mergetool]
 	keepBackup = false
 [mergetool "fugitive"]
-	cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [alias]
 	logg = log --oneline --graph --decorate
 	st = status
