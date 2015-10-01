@@ -10,13 +10,13 @@
 
 
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible " be iMproved
+filetype off     " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-"
+
 " let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
@@ -43,6 +43,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'klen/python-mode'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
+Plugin 'mattn/emmet-vim'
 " Plugin 'vim-ruby/vim-ruby'
 " Plugin 'vim-scripts/rubycomplete.vim'
 Plugin 'cakebaker/scss-syntax.vim'
@@ -75,9 +76,6 @@ set encoding=utf-8
 set number                      " line numbering
 set printoptions=number:y
 set clipboard=unnamed           
-set nocp                        " disable compatible mode
-set history=1000               
-set foldenable                  " auto fold code
 set ai                          " Auto indent
 set si                          " Smart indent
 set nowrap                      " Wrap lines
@@ -102,7 +100,6 @@ set lazyredraw
 set textwidth=0 
 set wrapmargin=0
 set regexpengine=1
-
 
 " Color, syntax, etc
 syntax on                       " Use color syntax highlighting.
@@ -146,14 +143,12 @@ map <right> <nop>
 nnoremap <tab> %
 vnoremap <tab> %
 
-
 " Easy window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 let g:C_Ctrl_j = 'off'
-
 
 " Stupid shift key fixes
 if !exists('g:spf13_no_keyfixes')
@@ -170,7 +165,6 @@ if !exists('g:spf13_no_keyfixes')
     endif
     cmap Tabe tabe
 endif
-
 
 " Tab related
 set expandtab                   " Use spaces instead of tabs
@@ -236,7 +230,6 @@ set wildmode=list:longest,full
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
-" let g:Powerline_theme = 'solarized256'
 let g:Powerline_colorscheme = 'solarized256'
 set laststatus=2
 
