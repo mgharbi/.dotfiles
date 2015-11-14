@@ -21,52 +21,53 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-scripts/a.vim'
-Plugin 'vim-scripts/closetag.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'Raimondi/delimitMate'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'xolox/vim-easytags'
-Plugin 'gregsexton/gitv'
-Plugin 'mileszs/ack.vim'
-Plugin 'tikhomirov/vim-glsl'
-Plugin 'sjl/gundo.vim'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'gerw/vim-latex-suite'
-Plugin 'tpope/vim-markdown'
-Plugin 'edsono/vim-matchit'
-Plugin 'vim-scripts/MatlabFilesEdition'
 Plugin 'scrooloose/nerdtree'
-Plugin 'klen/python-mode'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-repeat'
-Plugin 'mattn/emmet-vim'
-" Plugin 'vim-ruby/vim-ruby'
-" Plugin 'vim-scripts/rubycomplete.vim'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'tristen/vim-sparkup'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
-Plugin 'godlygeek/tabular'
-Plugin 'majutsushi/tagbar'
+
 Plugin 'vim-scripts/tComment'
 Plugin 'mgharbi/ultisnips'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'burnettk/vim-angular'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'xolox/vim-misc'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'vim-scripts/a.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-surround'
 Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'AndrewRadev/linediff.vim'
-Plugin 'uarun/vim-protobuf'
-Plugin 'jdevera/vim-protobuf-syntax'
-Plugin 'marijnh/tern_for_vim'
+Plugin 'godlygeek/tabular'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'mileszs/ack.vim'
+Plugin 'gregsexton/gitv'
+Plugin 'sjl/gundo.vim'
+" Plugin 'majutsushi/tagbar'
+
+Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'vim-scripts/MatlabFilesEdition'
+
+" Plugin 'tpope/vim-haml'
+" Plugin 'vim-scripts/closetag.vim'
+" Plugin 'davidhalter/jedi-vim'
+" Plugin 'gerw/vim-latex-suite'
+" Plugin 'tpope/vim-markdown'
+" Plugin 'klen/python-mode'
+" Plugin 'tpope/vim-repeat'
+" Plugin 'mattn/emmet-vim'
+"
+" Plugin 'cakebaker/scss-syntax.vim'
+" Plugin 'tristen/vim-sparkup'
+" Plugin 'scrooloose/syntastic'
+
+" Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'othree/javascript-libraries-syntax.vim'
+" Plugin 'marijnh/tern_for_vim'
+" Plugin 'burnettk/vim-angular'
+"
+" Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-easytags'
+"
+" Plugin 'AndrewRadev/linediff.vim'
+" Plugin 'uarun/vim-protobuf'
+" Plugin 'jdevera/vim-protobuf-syntax'
 
 call vundle#end()
 
@@ -92,21 +93,19 @@ set ruler		                " Show the line position at the bottom of the window
 set scrolloff=1		            " Minimum lines between cursor and window edge
 set showcmd		                " Show partially typed commands
 set showmatch		            " Show parentheses matching
-set smartindent		            " Indent settings (really only the cindent matters)
 set viminfo='0,\"100,	        
-set visualbell
 set noerrorbells
-set ttyfast
-set lazyredraw
 set textwidth=0 
 set wrapmargin=0
-set regexpengine=1
+set ttyfast
+set lazyredraw
+" set regexpengine=1
 
 " Color, syntax, etc
 syntax on                       " Use color syntax highlighting.
-filetype plugin on
-filetype indent on
-let g:solarized_termtrans = 1
+" filetype plugin on
+" filetype indent on
+let g:solarized_termtrans=1
 colorscheme solarized
 set bg=dark
 
@@ -127,19 +126,16 @@ set incsearch                   " find as you type search
 set gdefault                    " global search and replace
 set hlsearch		            " highlight search terms
 
-
 " Convenience remapping 
 inoremap jj <ESC>
 let mapleader = ","
 nnoremap ; :
-
 
 " De-activate arrowkeys, because har'core is better and faster
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-
 
 " Remap tab in normal and visual
 nnoremap <tab> %
@@ -176,7 +172,7 @@ set tabstop=4
 set softtabstop=4
 
 " cmake
-autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
+au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
 nnoremap <leader>m :!cd build && make<CR>
@@ -185,8 +181,8 @@ nnoremap <leader>m :!cd build && make<CR>
 vmap Q gq
 nmap Q gqap
 
-" Tag bar
-nnoremap <leader>l :TagbarToggle<CR>
+" " Tag bar
+" nnoremap <leader>l :TagbarToggle<CR>
 
 " Nerd Tree
 nnoremap <leader>r :NERDTreeToggle<CR>
@@ -230,49 +226,47 @@ set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
 
-" Powerline
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme = 'solarized256'
-set laststatus=2
+" " Python
+" " K             Show python docs
+" " <Ctrl-Space>  Rope autocomplete
+" " <Ctrl-c>g     Rope goto definition
+" " <Ctrl-c>d     Rope show documentation
+" " <Ctrl-c>f     Rope find occurrences
+" " <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" " [[            Jump on previous class or function (normal, visual, operator modes)
+" " ]]            Jump on next class or function (normal, visual, operator modes)
+" " [M            Jump on previous class or method (normal, visual, operator modes)
+" " ]M            Jump on next class or method (normal, visual, operator modes)
+" let g:pymode_rope = 0
+"
+" " Documentation
+" let g:pymode_doc = 1
+" let g:pymode_doc_key = 'K'
+"
+" "Linting
+" let g:pymode_lint = 0
+" let g:pymode_lint_checker = "pyflakes,pep8"
+" " Auto check on save
+" let g:pymode_lint_write = 1
+"
+" " Support virtualenv
+" let g:pymode_virtualenv = 1
+"
+" " Enable breakpoints plugin
+" let g:pymode_breakpoint = 1
+" let g:pymode_breakpoint_key = '<leader>b'
+"
+" " syntax highlighting
+" let g:pymode_syntax = 1
+" let g:pymode_syntax_all = 1
+" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+" let g:pymode_syntax_space_errors = g:pymode_syntax_all
+"
+" " Don't autofold code
+" let g:pymode_folding = 0
 
-" Python
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 0
-
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-"Linting
-let g:pymode_lint = 0
-let g:pymode_lint_checker = "pyflakes,pep8"
-" Auto check on save
-let g:pymode_lint_write = 1
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
+" Unbind run
+let g:pymode_run_bind = ''
 
 au BufRead,BufNewFile *.jinja set filetype=django
 
@@ -284,5 +278,3 @@ set diffopt+=vertical
 
 set bg=dark
 
-" Unbind run
-let g:pymode_run_bind = ''
