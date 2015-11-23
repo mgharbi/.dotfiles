@@ -55,11 +55,6 @@ alias gdb='gdb -q'
 alias db='lldb'
 
 
-# Cuda
-export CUDA_TOOLKIT_ROOT_DIR='/usr/local/cuda/'
-export PATH="/usr/local/cuda/bin":$PATH
-export LD_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:'/usr/local/cuda/lib64'
-
 # Scripts binding
 alias template='~/.scripts/project_template.py'
 
