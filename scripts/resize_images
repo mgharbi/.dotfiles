@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+import re
+import os
+import argparse
+import subprocess
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser('Convert images in path from src format to dst format, optionnaly erase the input')
+    parser.add_argument("path")
+    parser.add_argument("maxdim")
+    parser.add_argument("--erase", dest='erase', action='store_true')
+    parser.set_defaults(erase=False)
+    args = parser.parse_args()
+
+    path = args.path
+    for f in os.listdir(path):
+        if not re.match(".*\.(png|jpg|jpeg|bmp|tif)", f):
+            continue
+        print f
+        f = os.path.join(args.path, f)
+
+        base, out = os.path.split(f)
+        outdir = os.path.join(base, 'resized')
+        if not os.path.exists(outdir):
+            os.makedirs(outdir)
+        out = os.path.join(outdir,out)
+
+        subprocess.call(['ffmpeg', '-i', f, '-vf', 'scale=\'if(gt(a,1),%s,-1)\':\'if(gt(a,1),-1,%s)\'' % (args.maxdim, args.maxdim), out])
+        if args.erase:
+            os.remove(inp)

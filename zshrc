@@ -26,6 +26,7 @@ export EDITOR=vim
 # PATH extension
 export PATH="/usr/local/bin":$PATH
 export PATH='/usr/local/sbin':$PATH
+export PATH="$HOME/.dotfiles/scripts":$PATH
  
 # Python
 export WORKON_HOME=~/.virtualenvs
