@@ -15,6 +15,7 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 plugins=(osx git gem brew ruby rails rake python)
 
+alias localenv="vi $HOME/localenv.sh"
 alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -54,7 +55,6 @@ fi
 alias gdb='gdb -q'
 alias db='lldb'
 
-
 # Scripts binding
 alias template='~/.scripts/project_template.py'
 
@@ -64,8 +64,16 @@ alias template='~/.scripts/project_template.py'
 # alias cquote='strfile ~/.fortunes/citations ~/.fortunes/citations.dat'
 # say
 
-alias nanomed='ssh -2 -i ~/Downloads/nanomedicine.pem ubuntu@ec2-54-174-181-94.compute-1.amazonaws.com'
 
 if [[ -a $HOME/localenv.sh ]]; then
     source $HOME/localenv.sh
 fi
+
+function update-x11-forwarding
+{
+    if [ -z "$STY" -a -z "$TMUX" ]; then
+        echo $DISPLAY > ~/.display.txt
+    else
+        export DISPLAY=`cat ~/.display.txt`
+    fi
+}
