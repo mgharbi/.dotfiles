@@ -43,6 +43,12 @@ if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
         workon default
     fi
 fi
+if [[ -a $HOME/.local/bin/virtualenvwrapper.sh ]]; then
+    source $HOME/.local/bin/virtualenvwrapper.sh
+    if [[ -a $WORKON_HOME/default/bin/activate ]]; then
+        workon default
+    fi
+fi
 if (( $+commands[ipython] )); then
     alias py='nocorrect ipython'
 else
