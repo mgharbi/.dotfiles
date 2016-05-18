@@ -26,5 +26,5 @@ if __name__ == '__main__':
         if args.erase:
             os.remove(inp)
 
-    else:
-        raise BaseException("unknown mode")
+    # else:
+    #     raise BaseException("unknown mode")
