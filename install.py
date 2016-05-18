@@ -54,3 +54,6 @@ for f in files:
 
 # Install vim bundles
 os.system('vim -c VundleInstall -c quitall')
+
+os.system('git clone https://github.com/zsh-users/zsh-syntax-highlighting.git')
+os.system('echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc)

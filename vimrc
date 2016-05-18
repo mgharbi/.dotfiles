@@ -37,7 +37,6 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mileszs/ack.vim'
 Plugin 'gregsexton/gitv'
 Plugin 'sjl/gundo.vim'
-" Plugin 'majutsushi/tagbar'
 
 Plugin 'Valloric/YouCompleteMe'
 
@@ -99,7 +98,7 @@ set textwidth=0
 set wrapmargin=0
 set ttyfast
 set lazyredraw
-" set regexpengine=1
+set regexpengine=1
 
 " Color, syntax, etc
 syntax on                       " Use color syntax highlighting.
@@ -175,14 +174,12 @@ set softtabstop=4
 au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
-nnoremap <leader>m :!cd build && make<CR>
+nnoremap <leader>m :make<CR>
+" nnoremap <leader>m :make && !cd build && make<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
 nmap Q gqap
-
-" " Tag bar
-" nnoremap <leader>l :TagbarToggle<CR>
 
 " Nerd Tree
 nnoremap <leader>r :NERDTreeToggle<CR>
