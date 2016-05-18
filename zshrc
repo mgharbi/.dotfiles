@@ -46,10 +46,6 @@ alias db='lldb'
 # Scripts binding
 alias template='~/.scripts/project_template.py'
 
-if [[ -a $HOME/localenv.sh ]]; then
-    source $HOME/localenv.sh
-fi
-
 # function update-x11-forwarding
 # {
 #     if [ -z "$STY" -a -z "$TMUX" ]; then
@@ -58,4 +54,8 @@ fi
 #         export DISPLAY=`cat ~/.display.txt`
 #     fi
 # }
-source /afs/csail.mit.edu/u/g/gharbi/tmp_zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+if [[ -a $HOME/localenv.sh ]]; then
+    source $HOME/localenv.sh
+fi
+
