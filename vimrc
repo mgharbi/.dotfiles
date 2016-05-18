@@ -174,8 +174,8 @@ set softtabstop=4
 au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
-nnoremap <leader>m :make<CR>
-" nnoremap <leader>m :make && !cd build && make<CR>
+nnoremap <leader>m :!make<CR>
+" nnoremap <leader>m :!cd build && make<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
