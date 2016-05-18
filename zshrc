@@ -89,4 +89,3 @@ function update-x11-forwarding
         export DISPLAY=`cat ~/.display.txt`
     fi
 }
-source /afs/csail.mit.edu/u/g/gharbi/tmp_zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
