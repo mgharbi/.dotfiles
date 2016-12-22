@@ -17,7 +17,7 @@
 	<key>AutoHideTmuxClientSession</key>
 	<false/>
 	<key>CheckTestRelease</key>
-	<true/>
+	<false/>
 	<key>ClosingHotkeySwitchesSpaces</key>
 	<false/>
 	<key>CommandSelection</key>
@@ -540,16 +540,21 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>654 192 445 103 0 0 1440 877 </string>
+	<string>656 419 445 77 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>0 421 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1 11 1438 859 0 0 1440 877 </string>
+	<string>4 425 712 447 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>723 5 714 871 0 0 1440 877 </string>
+	<string>721 22 717 851 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>1 4 718 874 0 0 1440 878 </string>
 	<key>New Bookmarks</key>
@@ -3417,10 +3422,18 @@
 			<string>/Users/Michael</string>
 		</dict>
 	</array>
+	<key>NoSyncConfirmBeta</key>
+	<true/>
+	<key>NoSyncInstallationId</key>
+	<string>07552350-87C6-4A1E-8129-3A4ADFFFFFD4</string>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncSilenceAnnoyingBellAutomatically</key>
 	<true/>
+	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
+	<real>486914902.63448399</real>
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453436022.81964201</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
@@ -3493,11 +3506,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>http://iterm2.com/appcasts/testing.xml</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=14</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-09-27T15:59:29Z</date>
+	<date>2016-07-05T02:25:54Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -3532,7 +3545,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1437250944</real>
+	<real>1449088768</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>Use background pattern indicator</key>
@@ -5883,6 +5896,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150604</string>
+	<string>3.0.2</string>
 </dict>
 </plist>

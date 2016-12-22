@@ -11,10 +11,13 @@ SAVEHIST=5000               #Number of history entries to save to disk
 setopt    appendhistory     #Append history to the history file (no overwriting)
 setopt    sharehistory      #Share history across terminals
 setopt    incappendhistory  
-bindkey 'OA' history-search-backward 
-bindkey 'OB' history-search-forward 
 
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
 
 # Grep options
 export GREP_OPTIONS="--color=auto -E"
@@ -22,9 +25,9 @@ export GREP_OPTIONS="--color=auto -E"
 # A few command aliases
 alias swget="curl -O"
 alias gcc-4.2="gcc"
-alias l="ls -lah --color=auto"
+alias l="ls -lah"
 alias matlab="matlab -nodesktop -nosplash"
-alias clust='ssh $clust'
+alias occam='ssh gharbi@occam.csail.mit.edu'
 alias athena='ssh $athena'
 alias vifm='nocorrect vifm'
 alias vimrc='vi ~/.vimrc'

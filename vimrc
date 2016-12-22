@@ -9,6 +9,7 @@
 " -------------------------------------------------------------------------"
 
 
+set colorcolumn=80
 
 set nocompatible " be iMproved
 filetype off     " required
@@ -25,6 +26,7 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'vim-scripts/tComment'
 Plugin 'mgharbi/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/a.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
@@ -38,6 +40,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'gregsexton/gitv'
 Plugin 'sjl/gundo.vim'
 Plugin 'google/vim-ft-bzl'
+Plugin 'majutsushi/tagbar'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/MatlabFilesEdition'
@@ -190,6 +193,11 @@ set wildignore=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bi
 set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
+
+" Unbind run
+let g:pymode_run_bind = ''
+
+au BufRead,BufNewFile *.jinja set filetype=django
 
 " Vertical vimdif
 set diffopt+=vertical
