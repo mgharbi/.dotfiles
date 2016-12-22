@@ -9,6 +9,7 @@
 " -------------------------------------------------------------------------"
 
 
+set colorcolumn=80
 
 set nocompatible " be iMproved
 filetype off     " required
@@ -24,11 +25,13 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'vim-scripts/tComment'
-Plugin 'mgharbi/ultisnips'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/a.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
-Plugin 'git://git.wincent.com/command-t.git'
+" Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
@@ -37,6 +40,8 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mileszs/ack.vim'
 Plugin 'gregsexton/gitv'
 Plugin 'sjl/gundo.vim'
+" Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'majutsushi/tagbar'
 
 Plugin 'Valloric/YouCompleteMe'
 
@@ -207,6 +212,11 @@ nnoremap <leader>a :Ack
 nnoremap <leader>c<space> :TComment<CR>
 vnoremap <leader>c<space> :TComment<CR>
 
+" Tagbar
+nnoremap <leader>l :TagbarToggle<CR>
+
+nnoremap <leader>t :CtrlP<CR>
+
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
 
@@ -223,44 +233,6 @@ set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
 
-" " Python
-" " K             Show python docs
-" " <Ctrl-Space>  Rope autocomplete
-" " <Ctrl-c>g     Rope goto definition
-" " <Ctrl-c>d     Rope show documentation
-" " <Ctrl-c>f     Rope find occurrences
-" " <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" " [[            Jump on previous class or function (normal, visual, operator modes)
-" " ]]            Jump on next class or function (normal, visual, operator modes)
-" " [M            Jump on previous class or method (normal, visual, operator modes)
-" " ]M            Jump on next class or method (normal, visual, operator modes)
-" let g:pymode_rope = 0
-"
-" " Documentation
-" let g:pymode_doc = 1
-" let g:pymode_doc_key = 'K'
-"
-" "Linting
-" let g:pymode_lint = 0
-" let g:pymode_lint_checker = "pyflakes,pep8"
-" " Auto check on save
-" let g:pymode_lint_write = 1
-"
-" " Support virtualenv
-" let g:pymode_virtualenv = 1
-"
-" " Enable breakpoints plugin
-" let g:pymode_breakpoint = 1
-" let g:pymode_breakpoint_key = '<leader>b'
-"
-" " syntax highlighting
-" let g:pymode_syntax = 1
-" let g:pymode_syntax_all = 1
-" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-" let g:pymode_syntax_space_errors = g:pymode_syntax_all
-"
-" " Don't autofold code
-" let g:pymode_folding = 0
 
 " Unbind run
 let g:pymode_run_bind = ''
