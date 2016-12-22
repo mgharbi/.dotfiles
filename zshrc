@@ -89,3 +89,6 @@ function update-x11-forwarding
         export DISPLAY=`cat ~/.display.txt`
     fi
 }
+
+
+. /afs/csail.mit.edu/u/g/gharbi/torch/install/bin/torch-activate
