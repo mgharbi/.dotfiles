@@ -1,23 +1,24 @@
 autoload -U promptinit && promptinit
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+[[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
+[[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-searc
+
 prompt pure
 
 setopt autocd
+setopt appendhistory     #Append history to the history file (no overwriting)
+setopt sharehistory      #Share history across terminals
+setopt incappendhistory  
+
+
 
 # History config
 HISTSIZE=5000               #How many lines of history to keep in memory
 HISTFILE=~/.zsh_history     #Where to save history to disk
 SAVEHIST=5000               #Number of history entries to save to disk
-#HISTDUP=erase               #Erase duplicates in the history file
-setopt    appendhistory     #Append history to the history file (no overwriting)
-setopt    sharehistory      #Share history across terminals
-setopt    incappendhistory  
-
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search # Up
-bindkey "^[[B" down-line-or-beginning-search # Down
 
 # Grep options
 export GREP_OPTIONS="--color=auto -E"
