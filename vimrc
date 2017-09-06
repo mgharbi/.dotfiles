@@ -25,7 +25,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'vim-scripts/tComment'
-Plugin 'mgharbi/ultisnips'
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/a.vim'
 Plugin 'Raimondi/delimitMate'

@@ -54,12 +54,14 @@ export PATH="$HOME/.dotfiles/scripts":$PATH
   
 # Python
 export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON="python3"
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--system-site-packages'
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=false
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 syspip(){
-    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
 }
 
 if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
@@ -93,3 +95,4 @@ function update-x11-forwarding
         export DISPLAY=`cat ~/.display.txt`
     fi
 }
+source /Users/mgharbi/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
