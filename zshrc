@@ -1,19 +1,27 @@
+platform=`uname`
+
 autoload -U promptinit && promptinit
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-[[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
-[[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
+
+if [[ $platform -eq Darwin ]]; then
+  echo "Darwin!"
+  [[ -n '^[[A'      ]]  && bindkey   '^[[A'       up-line-or-beginning-search
+  [[ -n '^[[B'    ]]  && bindkey   '^[[B' down-line-or-beginning-search
+else
+  echo "Linux!"
+  [[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
+  [[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
+fi
 
 prompt pure
 
 setopt autocd
-setopt appendhistory     #Append history to the history file (no overwriting)
-setopt sharehistory      #Share history across terminals
+setopt appendhistory
+setopt sharehistory
 setopt incappendhistory  
-
-
 
 # History config
 HISTSIZE=5000               #How many lines of history to keep in memory
@@ -24,15 +32,14 @@ SAVEHIST=5000               #Number of history entries to save to disk
 export GREP_OPTIONS="--color=auto -E"
 
 # A few command aliases
+alias vi="vim"
 alias swget="curl -O"
 alias gcc-4.2="gcc"
 alias l="ls -lah"
 alias matlab="matlab -nodesktop -nosplash"
-alias occam='ssh gharbi@occam.csail.mit.edu'
+alias occam='ssh -X gharbi@occam.csail.mit.edu'
 alias athena='ssh $athena'
 alias vifm='nocorrect vifm'
-alias vimrc='vi ~/.vimrc'
-alias zshrc='vi ~/.zshrc'
 alias doc='cd ~/Documents'
 alias gst='git status'
 
@@ -45,7 +52,7 @@ alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
  
-export EDITOR=vim
+# export EDITOR=vim
  
 # PATH extension
 export PATH="/usr/local/bin":$PATH
