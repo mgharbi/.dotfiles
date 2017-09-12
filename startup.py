@@ -1,4 +1,3 @@
-# import numpy as np
-# import matplotlib.pyplot as plt
+import numpy as np
 
-# print "Ran {}".format(__file__)
+print("Ran {}".format(__file__))
