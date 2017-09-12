@@ -6,7 +6,7 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-if [[ $platform -eq Darwin ]]; then
+if [[ $platform == Darwin ]]; then
   echo "Darwin!"
   [[ -n '^[[A'      ]]  && bindkey   '^[[A'       up-line-or-beginning-search
   [[ -n '^[[B'    ]]  && bindkey   '^[[B' down-line-or-beginning-search
@@ -60,7 +60,7 @@ export PATH="$HOME/.dotfiles/scripts":$PATH
 # Python
 export WORKON_HOME=~/.virtualenvs
 
-if [[ $platform -eq Darwin ]]; then
+if [[ $platform == Darwin ]]; then
   export VIRTUALENVWRAPPER_PYTHON="python3"
   export PIP="pip3"
 else
