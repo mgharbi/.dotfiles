@@ -3,8 +3,10 @@ autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-[[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
-[[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
+[[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" up-line-or-beginning-search
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-beginning-search
+# bindkey "^[[A" up-line-or-beginning-search
+# bindkey "^[[B" down-line-or-beginning-search
 
 prompt pure
 
@@ -45,7 +47,8 @@ alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
  
-export EDITOR=vim
+# export EDITOR=vim
+# bindkey -e
  
 # PATH extension
 export PATH="/usr/local/bin":$PATH

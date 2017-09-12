@@ -26,7 +26,7 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'vim-scripts/tComment'
 Plugin 'mgharbi/ultisnips'
-Plugin 'honza/vim-snippets'
+" Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/a.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
@@ -43,12 +43,13 @@ Plugin 'google/vim-ft-bzl'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/MatlabFilesEdition'
+Plugin 'vim-scripts/gnuplot.vim'
 
 call vundle#end()
 
 
 " General config
-set term=xterm-256color
+" set term=xterm-256color
 set encoding=utf-8
 set number                      " line numbering
 set printoptions=number:y
