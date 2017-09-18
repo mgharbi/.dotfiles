@@ -7,11 +7,9 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 if [[ $platform == Darwin ]]; then
-  echo "Darwin!"
   [[ -n '^[[A'      ]]  && bindkey   '^[[A'       up-line-or-beginning-search
   [[ -n '^[[B'    ]]  && bindkey   '^[[B' down-line-or-beginning-search
 else
-  echo "Linux!"
   [[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
   [[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
 fi
@@ -108,4 +106,3 @@ function update-x11-forwarding
         export DISPLAY=`cat ~/.display.txt`
     fi
 }
-source /Users/mgharbi/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
