@@ -26,7 +26,7 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'vim-scripts/tComment'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plugin 'mgharbi/vim-snippets'
 Plugin 'vim-scripts/a.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
@@ -43,13 +43,20 @@ Plugin 'google/vim-ft-bzl'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/MatlabFilesEdition'
-Plugin 'vim-scripts/gnuplot.vim'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
 
 call vundle#end()
 
+" Folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
 
 " General config
-" set term=xterm-256color
+set term=xterm-256color
 set encoding=utf-8
 set number                      " line numbering
 set printoptions=number:y
@@ -79,6 +86,7 @@ set regexpengine=1
 
 " Color, syntax, etc
 syntax on                       " Use color syntax highlighting.
+let python_highlight_all=1
 filetype plugin on
 filetype indent on
 let g:solarized_termtrans=1
@@ -185,6 +193,7 @@ nnoremap <leader>l :Tagbar<CR>
 
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
@@ -210,3 +219,17 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+" Allow per-project .vimrc
+set exrc
+set secure

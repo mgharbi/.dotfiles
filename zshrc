@@ -43,7 +43,7 @@ alias gst='git status'
 
 alias zrc='vi ~/.zshrc'
 alias vrc='vi ~/.vimrc'
-alias snip='vi ~/.vimplugins/ultisnips/UltiSnips'
+alias snip='vi ~/.vimplugins/vim-snippets/UltiSnips'
 
 alias localenv="vi $HOME/localenv.sh"
 alias todo="vi $HOME/todo.md"
