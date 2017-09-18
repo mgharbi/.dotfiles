@@ -50,8 +50,6 @@ alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
  
-# export EDITOR=vim
- 
 # PATH extension
 export PATH="/usr/local/bin":$PATH
 export PATH='/usr/local/sbin':$PATH
@@ -59,14 +57,22 @@ export PATH="$HOME/.dotfiles/scripts":$PATH
   
 # Python
 export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON="python3"
+
+if [[ $platform == Darwin ]]; then
+  export VIRTUALENVWRAPPER_PYTHON="python3"
+  export PIP="pip3"
+else
+  export PIP="pip"
+  # export VIRTUALENVWRAPPER_PYTHON="python"
+fi
+
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--system-site-packages'
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 export PIP_REQUIRE_VIRTUALENV=false
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 syspip(){
-    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
+    PIP_REQUIRE_VIRTUALENV="" $PIP "$@"
 }
 
 if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
