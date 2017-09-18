@@ -7,11 +7,9 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 if [[ $platform -eq Darwin ]]; then
-  echo "Darwin!"
   [[ -n '^[[A'      ]]  && bindkey   '^[[A'       up-line-or-beginning-search
   [[ -n '^[[B'    ]]  && bindkey   '^[[B' down-line-or-beginning-search
 else
-  echo "Linux!"
   [[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
   [[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
 fi
@@ -45,7 +43,7 @@ alias gst='git status'
 
 alias zrc='vi ~/.zshrc'
 alias vrc='vi ~/.vimrc'
-alias snip='vi ~/.vimplugins/ultisnips/UltiSnips'
+alias snip='vi ~/.vimplugins/vim-snippets/UltiSnips'
 
 alias localenv="vi $HOME/localenv.sh"
 alias todo="vi $HOME/todo.md"
