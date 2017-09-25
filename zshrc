@@ -6,7 +6,7 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-if [[ $platform -eq Darwin ]]; then
+if [[ $platform == Darwin ]]; then
   [[ -n '^[[A'      ]]  && bindkey   '^[[A'       up-line-or-beginning-search
   [[ -n '^[[B'    ]]  && bindkey   '^[[B' down-line-or-beginning-search
 else
@@ -106,4 +106,3 @@ function update-x11-forwarding
         export DISPLAY=`cat ~/.display.txt`
     fi
 }
-source /Users/mgharbi/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
