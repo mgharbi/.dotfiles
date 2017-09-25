@@ -43,17 +43,12 @@ Plugin 'google/vim-ft-bzl'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/MatlabFilesEdition'
-Plugin 'vim-scripts/indentpython.vim'
+" Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
 
 call vundle#end()
-
-" Folding
-set foldmethod=indent
-set foldlevel=99
-nnoremap <space> za
 
 " General config
 set term=xterm-256color
@@ -192,7 +187,7 @@ nnoremap <leader>t :CtrlPMixed<CR>
 nnoremap <leader>l :Tagbar<CR>
 
 " YCM
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 autocmd BufRead,BufNewFile *.tex set  tw=80
@@ -233,3 +228,9 @@ EOF
 " Allow per-project .vimrc
 set exrc
 set secure
+
+" Folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
