@@ -23,7 +23,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins
 Plugin 'scrooloose/nerdtree'
-
+Plugin 'bling/vim-airline'
 Plugin 'vim-scripts/tComment'
 Plugin 'SirVer/ultisnips'
 Plugin 'mgharbi/vim-snippets'
@@ -47,8 +47,14 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
+" Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()
+
+
+
+" let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
+" let g:ycm_filetype_blacklist = { 'python' : 1 }
 
 " Folding
 set foldmethod=indent
@@ -194,6 +200,13 @@ nnoremap <leader>l :Tagbar<CR>
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>d :YcmCompleter GetDoc<CR>
+
+" Fugitive
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gl :Glog<CR>
 
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
