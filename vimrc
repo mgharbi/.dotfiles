@@ -43,7 +43,7 @@ Plugin 'google/vim-ft-bzl'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/MatlabFilesEdition'
-Plugin 'vim-scripts/indentpython.vim'
+" Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'scrooloose/syntastic'
 " Plugin 'nvie/vim-flake8'
@@ -208,7 +208,7 @@ nnoremap <leader>t :CtrlPMixed<CR>
 nnoremap <leader>l :Tagbar<CR>
 
 " YCM
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>d :YcmCompleter GetDoc<CR>
 
