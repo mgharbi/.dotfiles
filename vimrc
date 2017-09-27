@@ -30,7 +30,7 @@ Plugin 'mgharbi/vim-snippets'
 Plugin 'vim-scripts/a.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
@@ -46,15 +46,20 @@ Plugin 'vim-scripts/MatlabFilesEdition'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
+" Plugin 'nvie/vim-flake8'
+Plugin 'reedes/vim-pencil'
+" Plugin 'mhinz/vim-startify'
+Plugin 'bagrat/vim-workspace'
+Plugin 'ryanoasis/vim-devicons'
 " Plugin 'davidhalter/jedi-vim'
+" Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call vundle#end()
 
-
-
 " let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
 " let g:ycm_filetype_blacklist = { 'python' : 1 }
+"
+let g:airline_powerline_fonts=1
 
 " Folding
 set foldmethod=indent
@@ -176,7 +181,12 @@ nnoremap <leader>h :Gitv!<CR>
 " Tabs handling
 nnoremap <leader>q :tabp<CR>
 nnoremap <leader>w :tabn<CR>
-nnoremap <leader>e :tabnew<CR>
+" nnoremap <leader>e :tabnew<CR>
+nnoremap <leader>1 :WSPrev<CR>
+nnoremap <leader>2 :WSNext<CR>
+nnoremap <leader>e :WSTabNew<CR>
+nnoremap <leader>3 :WSClose<CR>
+nnoremap <leader>4 :tabclose<CR>
 
 " Alternate cpp header/implementation
 nnoremap <leader>s :A<CR>
@@ -211,10 +221,15 @@ nnoremap <leader>gl :Glog<CR>
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
 " Ignore these folders for fuzzy matching
-set wildignore=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**,third_party/**
+set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**,third_party/**
 set wildmenu					" show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|o|d)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 " Unbind run
 let g:pymode_run_bind = ''
@@ -246,3 +261,10 @@ EOF
 " Allow per-project .vimrc
 set exrc
 set secure
+
+" Pencil for text editing
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END

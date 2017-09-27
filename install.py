@@ -66,6 +66,7 @@ def main():
        "gitconfig",
        "ctags",
        "fortunes",
+       "ackrc",
        "vim",
        "vimrc",
        "zshrc",
