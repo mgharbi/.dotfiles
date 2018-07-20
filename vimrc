@@ -89,7 +89,6 @@ let g:lightline = {
 " Plugin 'nvie/vim-flake8'
 " Plugin 'mhinz/vim-startify'
 " Plugin 'ryanoasis/vim-devicons'
-" Plugin 'davidhalter/jedi-vim'
 
 
 " let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
@@ -245,7 +244,9 @@ nnoremap <leader>l :Tagbar<CR>
 " let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
 " nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " nnoremap <leader>d :YcmCompleter GetDoc<CR>
+nnoremap <leader>g :call completor#do('definition')<CR>
 nnoremap <leader>d :call completor#do('doc')<CR>
+let g:completor_doc_position='top'
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
