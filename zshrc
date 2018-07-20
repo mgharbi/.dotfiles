@@ -1,5 +1,10 @@
 platform=`uname`
 
+if [[ $platform == Darwin ]]; then
+else
+  fpath+=('/afs/csail.mit.edu/u/g/gharbi/node_modules/pure-prompt/functions')
+fi
+
 autoload -U promptinit && promptinit
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
@@ -7,11 +12,11 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 if [[ $platform == Darwin ]]; then
-  [[ -n '^[[A'      ]]  && bindkey   '^[[A'       up-line-or-beginning-search
-  [[ -n '^[[B'    ]]  && bindkey   '^[[B' down-line-or-beginning-search
+  [[ -n '^[[A'      ]]  && bindkey '^[[A' up-line-or-beginning-search
+  [[ -n '^[[B'    ]]  && bindkey '^[[B' down-line-or-beginning-search
 else
-  [[ -n "${key[Up]}"      ]]  && bindkey   "${key[Up]}"       up-line-or-beginning-search
-  [[ -n "${key[Down]}"    ]]  && bindkey   "${key[Down]}"    down-line-or-beginning-search
+  [[ -n "${key[Up]}"      ]]  && bindkey "${key[Up]}" up-line-or-beginning-search
+  [[ -n "${key[Down]}"    ]]  && bindkey "${key[Down]}" down-line-or-beginning-search
 fi
 
 prompt pure
@@ -26,8 +31,17 @@ HISTSIZE=5000               #How many lines of history to keep in memory
 HISTFILE=~/.zsh_history     #Where to save history to disk
 SAVEHIST=5000               #Number of history entries to save to disk
 
+# PATH extension
+export PATH="/usr/local/bin":$PATH
+export PATH='/usr/local/sbin':$PATH
+export PATH="$HOME/.dotfiles/scripts":$PATH
+export PATH=/home/gharbi/anaconda3/bin:$PATH
+
 # Grep options
-export GREP_OPTIONS="--color=auto -E"
+export GREP_OPTIONS=""
+alias grep="grep --color=auto -E"
+
+alias rm="rm -I"
 
 # A few command aliases
 alias vi="vim"
@@ -50,37 +64,9 @@ alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
  
-# PATH extension
-export PATH="/usr/local/bin":$PATH
-export PATH='/usr/local/sbin':$PATH
-export PATH="$HOME/.dotfiles/scripts":$PATH
   
 # Python
-export WORKON_HOME=~/.virtualenvs
-
-if [[ $platform == Darwin ]]; then
-  export VIRTUALENVWRAPPER_PYTHON="python3"
-  export PIP="pip3"
-else
-  export PIP="pip"
-  # export VIRTUALENVWRAPPER_PYTHON="python"
-fi
-
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--system-site-packages'
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_RESPECT_VIRTUALENV=true
-export PIP_REQUIRE_VIRTUALENV=false
-export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
-syspip(){
-    PIP_REQUIRE_VIRTUALENV="" $PIP "$@"
-}
-
-if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-     if [[ -a $WORKON_HOME/default/bin/activate ]]; then
-         workon default
-     fi
-fi
+export PYTHONPATH=:$PYTHONPATH
 if (( $+commands[ipython] )); then
     alias py='nocorrect ipython'
 else
@@ -106,3 +92,7 @@ function update-x11-forwarding
         export DISPLAY=`cat ~/.display.txt`
     fi
 }
+
+source activate
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

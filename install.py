@@ -19,7 +19,6 @@ def main():
 
     print("Installing brew packages")
     os.system("brew update")
-    os.system("brew install ack")
     os.system("brew install cmake")
     os.system("brew install ctags")
     os.system("brew install npm")
@@ -28,14 +27,15 @@ def main():
     os.system("brew install vim")
     os.system("brew install python")
   else:
-    raise ValueError("Linux install needs to be updated")
+    pass
+    # raise ValueError("Linux install needs to be updated")
 
   print("Installing pure prompt")
   os.system("npm install --global pure-prompt")
 
-  print("Installing Python")
-  os.system("pip3 install virtualenv")
-  os.system("pip3 install virtualenvwrapper")
+  # print("Installing Python")
+  # os.system("pip3 install virtualenv")
+  # os.system("pip3 install virtualenvwrapper")
 
   print("Aliasing vi -> vim")
   os.system("sudo rm /usr/bin/vi")
@@ -66,7 +66,6 @@ def main():
        "gitconfig",
        "ctags",
        "fortunes",
-       "ackrc",
        "vim",
        "vimrc",
        "zshrc",

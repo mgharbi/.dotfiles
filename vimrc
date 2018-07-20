@@ -8,61 +8,94 @@
 " 
 " -------------------------------------------------------------------------"
 
-
 set colorcolumn=80
 
 set nocompatible " be iMproved
 filetype off     " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Load Plug
+if empty(glob("~/.vim/autoload/plug.vim"))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
-" Plugins
-Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
-Plugin 'vim-scripts/tComment'
-Plugin 'SirVer/ultisnips'
-Plugin 'mgharbi/vim-snippets'
-Plugin 'vim-scripts/a.vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-surround'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'mileszs/ack.vim'
-Plugin 'gregsexton/gitv'
-Plugin 'sjl/gundo.vim'
-Plugin 'google/vim-ft-bzl'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'majutsushi/tagbar'
-Plugin 'vim-scripts/MatlabFilesEdition'
-" Plugin 'vim-scripts/indentpython.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'scrooloose/syntastic'
+"  Plugins
+Plug 'tpope/vim-eunuch'
+Plug 'itchyny/lightline.vim'
+Plug 'vim-scripts/tComment'
+Plug 'SirVer/ultisnips'
+Plug 'mgharbi/vim-snippets'
+Plug 'maralla/completor.vim'
+Plug 'w0rp/ale'
+Plug 'bagrat/vim-workspace'
+Plug 'mbbill/undotree'
+Plug 'majutsushi/tagbar'
+
+" Search
+Plug 'rking/ag.vim'
+Plug 'Chun-Yang/vim-action-ag'
+Plug '~/.fzf'
+
+Plug 'airblade/vim-gitgutter'
+
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+
+Plug 'altercation/vim-colors-solarized'
+Plug 'christoomey/vim-tmux-navigator'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+
+Plug 'godlygeek/tabular'
+
+" Indent and syntax
+Plug 'sheerun/vim-polyglot'
+
+" Alternate header/src
+Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
+
+filetype plugin indent on
+call plug#end()
+
+set noshowmode
+set laststatus=2
+let g:lightline = {
+     \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste'],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'filetype'], ['charvaluehex' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+" Plug 'vim-scripts/MatlabFilesEdition', {'for': 'matlab'}
+" Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
+" Plug 'Lokaltog/vim-easymotion'
+" Plug 'google/vim-ft-bzl'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'tmhedberg/SimpylFold'
 " Plugin 'nvie/vim-flake8'
-Plugin 'reedes/vim-pencil'
 " Plugin 'mhinz/vim-startify'
-Plugin 'bagrat/vim-workspace'
-Plugin 'ryanoasis/vim-devicons'
+" Plugin 'ryanoasis/vim-devicons'
 " Plugin 'davidhalter/jedi-vim'
-" Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-call vundle#end()
 
 " let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
 " let g:ycm_filetype_blacklist = { 'python' : 1 }
 "
-let g:airline_powerline_fonts=1
-
 " Folding
-set foldmethod=indent
 set foldlevel=99
 nnoremap <space> za
 
@@ -92,7 +125,7 @@ set noerrorbells
 set textwidth=0 
 set wrapmargin=0
 set ttyfast
-set lazyredraw
+ set lazyredraw
 set regexpengine=1
 
 " Color, syntax, etc
@@ -170,9 +203,9 @@ nnoremap <leader>m :!make<CR>
 vmap Q gq
 nmap Q gqap
 
-" Nerd Tree
-nnoremap <leader>r :NERDTreeToggle<CR>
-let NERDTreeIgnore = ['\.pyc$']
+" " Nerd Tree
+" nnoremap <leader>r :NERDTreeToggle<CR>
+" let NERDTreeIgnore = ['\.pyc$']
 
 " Gitv
 nnoremap <leader>g :Gitv<CR>
@@ -182,35 +215,37 @@ nnoremap <leader>h :Gitv!<CR>
 nnoremap <leader>q :tabp<CR>
 nnoremap <leader>w :tabn<CR>
 " nnoremap <leader>e :tabnew<CR>
+nnoremap <leader>e :WSTabNew<CR>
+nnoremap <leader>r :tabclose<CR>
 nnoremap <leader>1 :WSPrev<CR>
 nnoremap <leader>2 :WSNext<CR>
-nnoremap <leader>e :WSTabNew<CR>
 nnoremap <leader>3 :WSClose<CR>
-nnoremap <leader>4 :tabclose<CR>
 
 " Alternate cpp header/implementation
 nnoremap <leader>s :A<CR>
 
 "Gundo , undo tree
-nnoremap <leader>z :GundoToggle<CR>
+nnoremap <leader>z :UndotreeToggle<CR>
 
 " call Ack
-nnoremap <leader>a :Ack 
+nnoremap <leader>a :Ag 
 
 " Tcomment
 nnoremap <leader>c<space> :TComment<CR>
 vnoremap <leader>c<space> :TComment<CR>
 
 " CtrlP
-nnoremap <leader>t :CtrlPMixed<CR>
+" nnoremap <leader>t :CtrlPMixed<CR>
+nnoremap <leader>t :FZF<CR>
 
 " Tagbar
 nnoremap <leader>l :Tagbar<CR>
 
 " YCM
 " let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>d :YcmCompleter GetDoc<CR>
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>d :YcmCompleter GetDoc<CR>
+nnoremap <leader>d :call completor#do('doc')<CR>
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
@@ -231,6 +266,10 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
 " Unbind run
 let g:pymode_run_bind = ''
 
@@ -248,15 +287,17 @@ set shiftwidth=2
 set tabstop=2
 set softtabstop=2
 
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
+let g:completor_clang_binary='clang'
+
+" "python with virtualenv support
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
 
 " Allow per-project .vimrc
 set exrc
@@ -268,3 +309,15 @@ augroup pencil
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
+
+set foldmethod=indent
+
+set guicursor=
+autocmd OptionSet guicursor noautocmd set guicursor=
+
+let g:gitgutter_sign_added = '.'
+let g:gitgutter_sign_modified = '.'
+let g:gitgutter_sign_removed = '.'
+" let g:gitgutter_sign_removed_first_line = '^^'
+" let g:gitgutter_sign_modified_removed = 'ww'
+
