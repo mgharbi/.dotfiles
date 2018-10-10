@@ -96,3 +96,4 @@ function update-x11-forwarding
 source activate
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

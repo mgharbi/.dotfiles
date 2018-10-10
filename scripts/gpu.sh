@@ -26,7 +26,7 @@ elif [[ $machine == persephone ]]; then
   gpus=(0 1 2 3)
 elif [[ $machine == tefnut ]]; then
   gpus=(3 2 1 0)
-elif [[ $machbastet == bastet ]]; then
+elif [[ $machine == bastet ]]; then
   gpus=(3 2 1 0)
 else
   echo "Machine $machine is not registered in this script, aborting."
