@@ -10,3 +10,6 @@ tags
 .VimballRecord
 vim/autoload
 vim/bundle
+vim/plugged/
+zsh-syntax-highlighting/
+zsh-syntax-highlighting

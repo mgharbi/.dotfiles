@@ -25,10 +25,17 @@ def main():
     os.system("brew install tmux")
     os.system("brew install tree")
     os.system("brew install vim")
-    os.system("brew install python")
+    os.system("brew install wget")
+    os.system("brew install the_silver_searcher")
+
+    print("Installing Anaconda")
+    os.system("wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-MacOSX-x86_64.sh -O ~/anaconda.sh")
+    os.system("bash ~/anaconda.sh -b -p $HOME/anaconda")
+    os.system('export PATH="$HOME/anaconda/bin:$PATH"')
   else:
     pass
     # raise ValueError("Linux install needs to be updated")
+  return
 
   print("Installing pure prompt")
   os.system("npm install --global pure-prompt")
@@ -78,12 +85,9 @@ def main():
           os.symlink(os.path.join(dotfiles_dir,f),link)
           print("  + %s linked" % f)
 
-  # Install vim bundles
-  os.system('vim -c VundleInstall -c quitall')
-
-  print("Compiling vim plugins")
-  os.chdir(home_dir+"/.vim/bundle/YouCompleteMe")
-  os.system("/usr/bin/env python install.py --clang-completer")
+  print("Installing fuzzyfinder")
+  os.system("git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf")
+  os.system("~/.fzf/install")
 
 if __name__ == "__main__":
   main()
