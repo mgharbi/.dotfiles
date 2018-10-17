@@ -35,7 +35,7 @@ SAVEHIST=5000               #Number of history entries to save to disk
 export PATH="/usr/local/bin":$PATH
 export PATH='/usr/local/sbin':$PATH
 export PATH="$HOME/.dotfiles/scripts":$PATH
-export PATH=/home/gharbi/anaconda3/bin:$PATH
+export PATH="$HOME/anaconda/bin":$PATH
 
 # Grep options
 export GREP_OPTIONS=""

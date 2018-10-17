@@ -13,6 +13,9 @@ def main():
   system = platform.system()
 
   if system == "Darwin":
+    print("Switching shell to ZSH")
+    os.system("chsh -s $(which zsh)")
+
     # Install homebrew and libraries
     print("Installing homebrew")
     os.system("/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"")
