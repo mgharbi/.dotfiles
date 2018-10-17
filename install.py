@@ -12,9 +12,10 @@ def main():
   vimplugins_dir = os.path.join(home_dir, ".vimplugins")
   system = platform.system()
 
+  print("Switching shell to ZSH")
+  os.system("chsh -s $(which zsh)")
+
   if system == "Darwin":
-    print("Switching shell to ZSH")
-    os.system("chsh -s $(which zsh)")
 
     # Install homebrew and libraries
     print("Installing homebrew")
@@ -38,7 +39,6 @@ def main():
   else:
     pass
     # raise ValueError("Linux install needs to be updated")
-  return
 
   print("Installing pure prompt")
   os.system("npm install --global pure-prompt")
