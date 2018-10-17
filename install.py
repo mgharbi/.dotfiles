@@ -12,6 +12,17 @@ def main():
   vimplugins_dir = os.path.join(home_dir, ".vimplugins")
   system = platform.system()
 
+  packages = [
+    "cmake",
+    "ctags",
+    "npm",
+    "tmux",
+    "tree",
+    "vim",
+    "wget",
+    "the_silver_searcher",
+  ]
+
   print("Switching shell to ZSH")
   os.system("chsh -s $(which zsh)")
 
@@ -23,14 +34,8 @@ def main():
 
     print("Installing brew packages")
     os.system("brew update")
-    os.system("brew install cmake")
-    os.system("brew install ctags")
-    os.system("brew install npm")
-    os.system("brew install tmux")
-    os.system("brew install tree")
-    os.system("brew install vim")
-    os.system("brew install wget")
-    os.system("brew install the_silver_searcher")
+    for p in packages:
+      os.system("brew install {}".format(p))
 
     print("Installing Anaconda")
     os.system("wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-MacOSX-x86_64.sh -O ~/anaconda.sh")
