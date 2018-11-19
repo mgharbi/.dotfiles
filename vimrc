@@ -91,9 +91,6 @@ let g:lightline = {
 " Plugin 'ryanoasis/vim-devicons'
 
 
-" let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
-" let g:ycm_filetype_blacklist = { 'python' : 1 }
-"
 " Folding
 set foldlevel=99
 nnoremap <space> za
@@ -247,6 +244,8 @@ nnoremap <leader>l :Tagbar<CR>
 nnoremap <leader>g :call completor#do('definition')<CR>
 nnoremap <leader>d :call completor#do('doc')<CR>
 let g:completor_doc_position='top'
+let g:completor_clang_binary='clang'
+let g:completor_python_binary = '/Users/mgharbi/anaconda/bin/python'
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
@@ -284,11 +283,10 @@ set bg=dark
 " Tab related
 set expandtab
 set smarttab
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
+" set shiftwidth=2
+" set tabstop=2
+" set softtabstop=2
 
-let g:completor_clang_binary='clang'
 
 " "python with virtualenv support
 " py << EOF
@@ -303,13 +301,6 @@ let g:completor_clang_binary='clang'
 " Allow per-project .vimrc
 set exrc
 set secure
-
-" Pencil for text editing
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
-augroup END
 
 set foldmethod=indent
 
