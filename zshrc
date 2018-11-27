@@ -41,7 +41,7 @@ export PATH="$HOME/anaconda/bin":$PATH
 export GREP_OPTIONS=""
 alias grep="grep --color=auto -E"
 
-alias rm="rm -I"
+alias rm=rm -i
 
 # A few command aliases
 alias vi="vim"
@@ -96,4 +96,3 @@ function update-x11-forwarding
 source activate
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-

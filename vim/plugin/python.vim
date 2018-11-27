@@ -1,6 +1,6 @@
 " Python related
 if has('autocmd')
-    au Filetype python setl et ts=2 sw=2
+    au Filetype python setl et ts=4 sw=4
     autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
     
     " Scons syntax
