@@ -2,14 +2,17 @@ platform=`uname`
 
 if [[ $platform == Darwin ]]; then
 else
-  fpath+=('/afs/csail.mit.edu/u/g/gharbi/node_modules/pure-prompt/functions')
+  fpath+=('/usr/local/lib/node_modules/pure-prompt/functions')
 fi
 
 autoload -U promptinit && promptinit
+prompt pure
+
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+
 
 if [[ $platform == Darwin ]]; then
   [[ -n '^[[A'      ]]  && bindkey '^[[A' up-line-or-beginning-search
@@ -18,8 +21,6 @@ else
   [[ -n "${key[Up]}"      ]]  && bindkey "${key[Up]}" up-line-or-beginning-search
   [[ -n "${key[Down]}"    ]]  && bindkey "${key[Down]}" down-line-or-beginning-search
 fi
-
-prompt pure
 
 setopt autocd
 setopt appendhistory
@@ -35,7 +36,6 @@ SAVEHIST=5000               #Number of history entries to save to disk
 export PATH="/usr/local/bin":$PATH
 export PATH='/usr/local/sbin':$PATH
 export PATH="$HOME/.dotfiles/scripts":$PATH
-export PATH="$HOME/anaconda/bin":$PATH
 
 # Grep options
 export GREP_OPTIONS=""
@@ -93,6 +93,8 @@ function update-x11-forwarding
     fi
 }
 
-source activate
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Activate Conda env
+export PATH=$PATH:"$HOME/anaconda/bin"
+source activate
