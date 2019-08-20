@@ -61,6 +61,11 @@ Plug 'sheerun/vim-polyglot'
 " Alternate header/src
 Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
 
+" Line-wrapping and text edit
+Plug 'reedes/vim-pencil'
+
+Plug 'xavierd/clang_complete'
+
 filetype plugin indent on
 call plug#end()
 
@@ -245,7 +250,9 @@ nnoremap <leader>g :call completor#do('definition')<CR>
 nnoremap <leader>d :call completor#do('doc')<CR>
 let g:completor_doc_position='top'
 let g:completor_clang_binary='clang'
-let g:completor_python_binary = '/Users/mgharbi/anaconda/bin/python'
+let g:clang_library_path='/usr/local/Cellar/llvm/7.0.0/lib'
+let g:ale_linters = {'cpp': ['clangcheck', 'clangtidy']}
+" let g:completor_python_binary = '/Users/mgharbi/anaconda/bin/python'
 
 " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 " dictionary, source files, and completor to find matching words to complete.
