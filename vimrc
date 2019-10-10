@@ -22,8 +22,11 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Language server protocol
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
 "  Plugins
-Plug 'tpope/vim-eunuch'
 Plug 'itchyny/lightline.vim'
 Plug 'vim-scripts/tComment'
 Plug 'SirVer/ultisnips'
@@ -62,9 +65,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
 
 " Line-wrapping and text edit
-Plug 'reedes/vim-pencil'
+" Plug 'reedes/vim-pencil'
 
-Plug 'xavierd/clang_complete'
+" Plug 'xavierd/clang_complete'
 
 filetype plugin indent on
 call plug#end()
@@ -204,20 +207,16 @@ nnoremap <leader>m :!make<CR>
 vmap Q gq
 nmap Q gqap
 
-" " Nerd Tree
-" nnoremap <leader>r :NERDTreeToggle<CR>
-" let NERDTreeIgnore = ['\.pyc$']
-
 " Gitv
-nnoremap <leader>g :Gitv<CR>
+" nnoremap <leader>g :Gitv<CR>
 nnoremap <leader>h :Gitv!<CR>
 
 " Tabs handling
 nnoremap <leader>q :tabp<CR>
 nnoremap <leader>w :tabn<CR>
-" nnoremap <leader>e :tabnew<CR>
-nnoremap <leader>e :WSTabNew<CR>
-nnoremap <leader>r :tabclose<CR>
+nnoremap <leader>e :tabnew<CR>
+" nnoremap <leader>e :WSTabNew<CR>
+" nnoremap <leader>r :tabclose<CR>
 nnoremap <leader>1 :WSPrev<CR>
 nnoremap <leader>2 :WSNext<CR>
 nnoremap <leader>3 :WSClose<CR>
@@ -235,28 +234,18 @@ nnoremap <leader>a :Ag
 nnoremap <leader>c<space> :TComment<CR>
 vnoremap <leader>c<space> :TComment<CR>
 
-" CtrlP
-" nnoremap <leader>t :CtrlPMixed<CR>
+" Fuzzy search
 nnoremap <leader>t :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Tagbar
 nnoremap <leader>l :Tagbar<CR>
 
-" YCM
-" let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
-" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" nnoremap <leader>d :YcmCompleter GetDoc<CR>
-nnoremap <leader>g :call completor#do('definition')<CR>
-nnoremap <leader>d :call completor#do('doc')<CR>
-let g:completor_doc_position='top'
-let g:completor_clang_binary='clang'
-let g:clang_library_path='/usr/local/Cellar/llvm/7.0.0/lib'
+" ALE
 let g:ale_linters = {'cpp': ['clangcheck', 'clangtidy']}
-" let g:completor_python_binary = '/Users/mgharbi/anaconda/bin/python'
 
 " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 " dictionary, source files, and completor to find matching words to complete.
-
 " Note: usual completion is on <C-n> but more trouble to press all the time.
 " Never type the same word twice and maybe learn a new spellings!
 " Use the Linux dictionary when spelling is in doubt.
@@ -278,7 +267,6 @@ endfunction
 " Use `tab` key to select completions.  Default is arrow keys.
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
@@ -287,25 +275,13 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " let g:completor_auto_trigger = 0
 inoremap <expr> <Tab> Tab_Or_Complete()
 
-" Fugitive
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gl :Glog<CR>
-
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
 " Ignore these folders for fuzzy matching
 set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**
-set wildmenu					" show list instead of just completing
+set wildmenu " show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|o|d)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-
 
 " Unbind run
 let g:pymode_run_bind = ''
@@ -324,22 +300,9 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 
-
-" "python with virtualenv support
-" py << EOF
-" import os
-" import sys
-" if 'VIRTUAL_ENV' in os.environ:
-"   project_base_dir = os.environ['VIRTUAL_ENV']
-"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"   execfile(activate_this, dict(__file__=activate_this))
-" EOF
-
 " Allow per-project .vimrc
 set exrc
 set secure
-
-set foldmethod=indent
 
 set guicursor=
 autocmd OptionSet guicursor noautocmd set guicursor=
@@ -347,8 +310,49 @@ autocmd OptionSet guicursor noautocmd set guicursor=
 let g:gitgutter_sign_added = '.'
 let g:gitgutter_sign_modified = '.'
 let g:gitgutter_sign_removed = '.'
-" let g:gitgutter_sign_removed_first_line = '^^'
-" let g:gitgutter_sign_modified_removed = 'ww'
 
-" let $FZF_DEFAULT_COMMAND = 'fd --type f'
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" C++ LSP
+if executable('clangd')
+    augroup lsp_clangd
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+                    \ 'name': 'clangd',
+                    \ 'cmd': {server_info->['clangd']},
+                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+                    \ })
+        autocmd FileType c setlocal omnifunc=lsp#complete
+        autocmd FileType cpp setlocal omnifunc=lsp#complete
+        autocmd FileType objc setlocal omnifunc=lsp#complete
+        autocmd FileType objcpp setlocal omnifunc=lsp#complete
+    augroup end
+endif
+
+" Enablle gdb within vim
+autocmd FileType c,cpp :packadd termdebug
+autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
+autocmd FileType c,cpp nnoremap <leader>B :Delete<CR>
+
+" Python lsp
+" requires 'pip install python-language-server'
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+endif
+
+" LSP shortcuts
+nnoremap <leader>g :LspDefinition<CR>
+nnoremap <leader>d :LspHover<CR>
+nnoremap <leader>r :LspNextError<CR>
+nnoremap <leader>R :LspPreviousError<CR>
+
+nnoremap <leader>n :term<CR>
+
+set foldmethod=indent
+" set foldmethod=expr
+"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+"   \ foldtext=lsp#ui#vim#folding#foldtext()
+
