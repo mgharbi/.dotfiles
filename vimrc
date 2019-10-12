@@ -201,7 +201,7 @@ au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
 
 " compile
 nnoremap <leader>m :!make<CR>
-" nnoremap <leader>m :!cd build && make<CR>
+nnoremap <leader><leader>m :!cd build && make<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
@@ -240,9 +240,6 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Tagbar
 nnoremap <leader>l :Tagbar<CR>
-
-" ALE
-let g:ale_linters = {'cpp': ['clangcheck', 'clangtidy']}
 
 " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 " dictionary, source files, and completor to find matching words to complete.
@@ -356,3 +353,14 @@ set foldmethod=indent
 "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
 "   \ foldtext=lsp#ui#vim#folding#foldtext()
 
+" " ALE
+let g:ale_linters = {'cpp': ['clangd', 'clangcheck']}
+" let g:ale_linters = {'cpp': ['clangcheck', 'clangtidy']}
+" let g:ale_linters = {'*': ['remove_trailing_lines', 'trim_whitespace'], 'cpp': ['clangcheck', 'clangtidy']}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'cpp': ['clang-format', 'clangtidy', 'uncrustify'],
+\}
+
+" Debug layout
+let g:termdebug_wide = 163
