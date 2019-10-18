@@ -252,8 +252,10 @@ function! Tab_Or_Complete() abort
     return "\<C-N>"
   " If completor is not open and we are in the middle of typing a word then
   " `tab` opens completor menu.
-  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-R>=completor#do('complete')\<CR>"
+  " elseif col('.')>1
+  elseif col('.')>1 && strpart(getline('.'), col('.')-2, 1) =~ '\w\|\.\|\:'
+    return "\<C-x>\<C-o>"
+    " return "\<C-R>=completor#do('complete')\<CR>"
   else
     " If we aren't typing a word and we press `tab` simply do the normal `tab`
     " action.
@@ -264,12 +266,10 @@ endfunction
 " Use `tab` key to select completions.  Default is arrow keys.
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 " Use tab to trigger auto completion.  Default suggests completions as you type.
-" let g:completor_auto_trigger = 0
+let g:completor_auto_trigger = 0
 inoremap <expr> <Tab> Tab_Or_Complete()
 
 autocmd BufRead,BufNewFile *.tex set  tw=80
