@@ -47,7 +47,7 @@ alias rm=rm -i
 alias vi="vim"
 alias swget="curl -O"
 alias gcc-4.2="gcc"
-alias l="ls -lah"
+alias l="ls -lah -G"
 alias matlab="matlab -nodesktop -nosplash"
 alias occam='ssh -X gharbi@occam.csail.mit.edu'
 alias athena='ssh $athena'
@@ -95,6 +95,8 @@ function update-x11-forwarding
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export HALIDE_DISTRIB_DIR=$HOME/projects/Halide
+
 # Activate Conda env
-export PATH=$PATH:"$HOME/anaconda/bin"
+export PATH="$HOME/anaconda/bin":$PATH
 source activate
