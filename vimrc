@@ -236,7 +236,7 @@ vnoremap <leader>c<space> :TComment<CR>
 
 " Fuzzy search
 nnoremap <leader>t :FZF<CR>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore thirdparty'
 
 " Tagbar
 nnoremap <leader>l :Tagbar<CR>
@@ -275,7 +275,7 @@ inoremap <expr> <Tab> Tab_Or_Complete()
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
 " Ignore these folders for fuzzy matching
-set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**
+set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**,thirdparty/**,vendor/**
 set wildmenu " show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
@@ -354,12 +354,13 @@ set foldmethod=indent
 "   \ foldtext=lsp#ui#vim#folding#foldtext()
 
 " " ALE
-let g:ale_linters = {'cpp': ['clangd', 'clangcheck']}
-" let g:ale_linters = {'cpp': ['clangcheck', 'clangtidy']}
-" let g:ale_linters = {'*': ['remove_trailing_lines', 'trim_whitespace'], 'cpp': ['clangcheck', 'clangtidy']}
+let g:ale_linters = {
+      \ 'cpp': ['clangd', 'clangcheck'],
+      \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'cpp': ['clang-format', 'clangtidy', 'uncrustify'],
+\   'python': ['reorder-python-imports', 'black']
 \}
 
 " Debug layout
