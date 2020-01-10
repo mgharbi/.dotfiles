@@ -204,8 +204,8 @@ endif
 au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
-nnoremap <leader>m :!make<CR>
-nnoremap <leader><leader>m :!cd build && make<CR>
+nnoremap <leader>m :!make -j<CR>
+nnoremap <leader><leader>m :!cd build && make -j<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
@@ -279,7 +279,7 @@ inoremap <expr> <Tab> Tab_Or_Complete()
 autocmd BufRead,BufNewFile *.tex set  tw=80
 
 " Ignore these folders for fuzzy matching
-set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**,thirdparty/**,vendor/**
+set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**,vendor/**,vendors/**
 set wildmenu " show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
@@ -331,7 +331,7 @@ endif
 " Enablle gdb within vim
 autocmd FileType c,cpp :packadd termdebug
 autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
-autocmd FileType c,cpp nnoremap <leader>B :Delete<CR>
+autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
 
 " Python lsp
 " requires 'pip install python-language-server'
