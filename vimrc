@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
+
 "  Plugins
 Plug 'itchyny/lightline.vim'
 Plug 'vim-scripts/tComment'
@@ -58,6 +59,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 
 Plug 'godlygeek/tabular'
+
+" Latex
+Plug 'lervag/vimtex'
 
 " Indent and syntax
 Plug 'sheerun/vim-polyglot'
