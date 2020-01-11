@@ -35,7 +35,8 @@ Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'bagrat/vim-workspace'
 Plug 'mbbill/undotree'
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 
 " Search
 Plug 'rking/ag.vim'
@@ -71,22 +72,6 @@ Plug 'reedes/vim-pencil'
 
 filetype plugin indent on
 call plug#end()
-
-set noshowmode
-set laststatus=2
-let g:lightline = {
-     \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste'],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'filetype'], ['charvaluehex' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
 
 " Plug 'vim-scripts/MatlabFilesEdition', {'for': 'matlab'}
 " Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
@@ -239,7 +224,7 @@ nnoremap <leader>t :FZF<CR>
 let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore thirdparty'
 
 " Tagbar
-nnoremap <leader>l :Tagbar<CR>
+nnoremap <leader>l :Vista!!<CR>
 
 " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 " dictionary, source files, and completor to find matching words to complete.
@@ -331,14 +316,14 @@ autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
 
 " Python lsp
 " requires 'pip install python-language-server'
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-        \ })
-endif
+" if executable('pyls')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyls',
+"         \ 'cmd': {server_info->['pyls']},
+"         \ 'whitelist': ['python', 'python3'],
+"         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+"         \ })
+" endif
 
 " LSP shortcuts
 nnoremap <leader>g :LspDefinition<CR>
@@ -348,10 +333,10 @@ nnoremap <leader>R :LspPreviousError<CR>
 
 nnoremap <leader>n :term<CR>
 
-set foldmethod=indent
-" set foldmethod=expr
-"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
-"   \ foldtext=lsp#ui#vim#folding#foldtext()
+" set foldmethod=indent
+set foldmethod=expr
+  \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  \ foldtext=lsp#ui#vim#folding#foldtext()
 
 " " ALE
 let g:ale_linters = {
@@ -363,5 +348,47 @@ let g:ale_fixers = {
 \   'python': ['reorder-python-imports', 'black']
 \}
 
+
+" Symbol browser
+let g:vista_icon_indent = ["▸ ", ""]
+let g:vista#renderer#enable_icon = 0
+let g:vista_executive_for = {
+  \ 'cpp': 'vim_lsp',
+  \ 'python': 'vim_lsp',
+  \ }
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc 
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+
+set noshowmode
+set laststatus=2
+let g:lightline = {
+     \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste'],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'filetype'], ['charvaluehex' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
 " Debug layout
 let g:termdebug_wide = 163
+
+" Plugins debug
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = 'vim-lsp.log'
