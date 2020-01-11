@@ -352,7 +352,11 @@ nnoremap <leader>R :LspPreviousError<CR>
 
 nnoremap <leader>n :term<CR>
 
-set foldmethod=indent
+" TeX
+let g:polyglot_disabled = ['latex']
+let g:vimtex_fold_enabled=1
+
+" set foldmethod=indent
 " set foldmethod=expr
 "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
 "   \ foldtext=lsp#ui#vim#folding#foldtext()
