@@ -277,7 +277,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:completor_auto_trigger = 0
 inoremap <expr> <Tab> Tab_Or_Complete()
 
-autocmd BufRead,BufNewFile *.tex set  tw=80
+autocmd BufRead,BufNewFile *.tex set tw=80
 
 " Ignore these folders for fuzzy matching
 set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**,vendor/**,vendors/**
@@ -335,15 +335,15 @@ autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
 autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
 
 " Python lsp
-" requires 'pip install python-language-server'
-" if executable('pyls')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'pyls',
-"         \ 'cmd': {server_info->['pyls']},
-"         \ 'whitelist': ['python', 'python3'],
-"         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-"         \ })
-" endif
+" requires 'pip install python-language-server[all]'
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python', 'python3'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+endif
 
 " LSP shortcuts
 nnoremap <leader>g :LspDefinition<CR>
@@ -358,9 +358,9 @@ let g:polyglot_disabled = ['latex']
 let g:vimtex_fold_enabled=1
 
 " set foldmethod=indent
-" set foldmethod=expr
-"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
-"   \ foldtext=lsp#ui#vim#folding#foldtext()
+set foldmethod=expr
+  \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  \ foldtext=lsp#ui#vim#folding#foldtext()
 
 " " ALE
 let g:ale_linters = {
