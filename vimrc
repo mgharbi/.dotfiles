@@ -336,14 +336,14 @@ autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
 
 " Python lsp
 " requires 'pip install python-language-server[all]'
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python', 'python3'],
-        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-        \ })
-endif
+" if executable('pyls')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyls',
+"         \ 'cmd': {server_info->['pyls']},
+"         \ 'whitelist': ['python', 'python3'],
+"         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+"         \ })
+" endif
 
 " LSP shortcuts
 nnoremap <leader>g :LspDefinition<CR>
@@ -357,29 +357,29 @@ nnoremap <leader>n :term<CR>
 let g:polyglot_disabled = ['latex']
 let g:vimtex_fold_enabled=1
 
-" set foldmethod=indent
-set foldmethod=expr
-  \ foldexpr=lsp#ui#vim#folding#foldexpr()
-  \ foldtext=lsp#ui#vim#folding#foldtext()
-
+" " set foldmethod=indent
+" set foldmethod=expr
+"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+"   \ foldtext=lsp#ui#vim#folding#foldtext()
+"
 " " ALE
 let g:ale_linters = {
       \ 'cpp': ['clangd', 'clangcheck'],
       \}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'cpp': ['clang-format', 'clangtidy', 'uncrustify'],
-\   'python': ['reorder-python-imports', 'black']
-\}
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'cpp': ['clang-format', 'clangtidy', 'uncrustify'],
+" \   'python': ['reorder-python-imports', 'black']
+" \}
 
 
 " Symbol browser
 let g:vista_icon_indent = ["▸ ", ""]
 let g:vista#renderer#enable_icon = 0
-let g:vista_executive_for = {
-  \ 'cpp': 'vim_lsp',
-  \ 'python': 'vim_lsp',
-  \ }
+" let g:vista_executive_for = {
+"   \ 'cpp': 'vim_lsp',
+  " \ 'python': 'vim_lsp',
+"   \ }
 
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
