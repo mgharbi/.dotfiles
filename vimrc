@@ -20,31 +20,39 @@ if empty(glob("~/.vim/autoload/plug.vim"))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" " TeX
+" let g:polyglot_disabled = ['latex']
+" let g:vimtex_fold_enabled=1
+
 call plug#begin('~/.vim/plugged')
 
 " Language server protocol
-Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 
-
-"  Plugins
+" UI
 Plug 'itchyny/lightline.vim'
+" Plug 'mengelbrecht/lightline-bufferline'
+" Display buffers and tabs
+Plug 'bagrat/vim-buffet'
+
 Plug 'vim-scripts/tComment'
 Plug 'SirVer/ultisnips'
 Plug 'mgharbi/vim-snippets'
+
 Plug 'maralla/completor.vim'
-Plug 'w0rp/ale'
-Plug 'bagrat/vim-workspace'
+" Plug 'w0rp/ale'
+
 Plug 'mbbill/undotree'
-" Plug 'majutsushi/tagbar'
+
+" Class and method list
 Plug 'liuchengxu/vista.vim'
 
 " Search
 Plug 'rking/ag.vim'
 Plug 'Chun-Yang/vim-action-ag'
 Plug '~/.fzf'
-
-Plug 'airblade/vim-gitgutter'
 
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
@@ -57,6 +65,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular'
 
@@ -72,7 +81,7 @@ Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
 " Line-wrapping and text edit
 Plug 'reedes/vim-pencil'
 
-" Plug 'xavierd/clang_complete'
+
 
 filetype plugin indent on
 call plug#end()
@@ -88,10 +97,15 @@ let g:lightline = {
       \              [ 'percent' ],
       \              [ 'filetype'], ['charvaluehex' ] ]
       \ },
+      \ 'enable' : {
+      \     'tabline': 0
+      \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
+let g:lightline.enable.tabline = 0
+let g:buffet_modified_icon	= ' +'
 
 " Plug 'vim-scripts/MatlabFilesEdition', {'for': 'matlab'}
 " Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
@@ -216,18 +230,14 @@ nmap Q gqap
 " nnoremap <leader>g :Gitv<CR>
 nnoremap <leader>h :Gitv!<CR>
 
-" Tabs handling
+" Tabs and buffers handling
 nnoremap <leader>q :tabp<CR>
 nnoremap <leader>w :tabn<CR>
-nnoremap <leader>e :tabnew<CR>
-" nnoremap <leader>e :WSTabNew<CR>
-" nnoremap <leader>r :tabclose<CR>
-nnoremap <leader>1 :WSPrev<CR>
-nnoremap <leader>2 :WSNext<CR>
-nnoremap <leader>3 :WSClose<CR>
+nnoremap <leader>e :tabnew %<CR>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
+nnoremap <Leader><Tab> :bd<CR>
 
-" Alternate cpp header/implementation
-nnoremap <leader>s :A<CR>
 
 "Gundo , undo tree
 nnoremap <leader>z :UndotreeToggle<CR>
@@ -274,7 +284,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 " Use tab to trigger auto completion.  Default suggests completions as you type.
-let g:completor_auto_trigger = 0
+let g:completor_auto_trigger = 1
 inoremap <expr> <Tab> Tab_Or_Complete()
 
 autocmd BufRead,BufNewFile *.tex set tw=80
@@ -313,14 +323,33 @@ let g:gitgutter_sign_added = '.'
 let g:gitgutter_sign_modified = '.'
 let g:gitgutter_sign_removed = '.'
 
+" if executable('clangd')
+"     augroup lsp_clangd
+"         autocmd!
+"         autocmd User lsp_setup call lsp#register_server({
+"                     \ 'name': 'clangd',
+"                     \ 'cmd': {server_info->['clangd']},
+"                     \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+"                     \ })
+"         autocmd FileType c setlocal omnifunc=lsp#complete
+"         autocmd FileType cpp setlocal omnifunc=lsp#complete
+"         autocmd FileType objc setlocal omnifunc=lsp#complete
+"         autocmd FileType objcpp setlocal omnifunc=lsp#complete
+"     augroup end
+" endif
+
+let g:lsp_diagnostics_echo_cursor = 1
+
 " C++ LSP
-if executable('clangd')
-    augroup lsp_clangd
+if executable('ccls')
+    augroup lsp_ccls
         autocmd!
         autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'clangd',
-                    \ 'cmd': {server_info->['clangd']},
-                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+                    \ 'name': 'ccls',
+                    \ 'cmd': {server_info->['ccls']},
+                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+                    \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+                    \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }, 'highlight': { 'lsRanges' : v:true }},
                     \ })
         autocmd FileType c setlocal omnifunc=lsp#complete
         autocmd FileType cpp setlocal omnifunc=lsp#complete
@@ -329,43 +358,60 @@ if executable('clangd')
     augroup end
 endif
 
-" Enablle gdb within vim
-autocmd FileType c,cpp :packadd termdebug
-autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
-autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
+" Latex LSP
+if executable('texlab')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'texlab',
+        \ 'cmd': {server_info->['texlab']},
+        \ 'config': {
+        \     'hover_conceal': 0,
+        \ },
+        \ 'whitelist': ['bib','tex'],
+        \ })
+      autocmd FileType tex setlocal omnifunc=lsp#complete
+endif
 
-" Python lsp
+" Python LSP
 " requires 'pip install python-language-server[all]'
-" if executable('pyls')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'pyls',
-"         \ 'cmd': {server_info->['pyls']},
-"         \ 'whitelist': ['python', 'python3'],
-"         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-"         \ })
-" endif
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python', 'python3'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+endif
 
 " LSP shortcuts
 nnoremap <leader>g :LspDefinition<CR>
 nnoremap <leader>d :LspHover<CR>
 nnoremap <leader>r :LspNextError<CR>
 nnoremap <leader>R :LspPreviousError<CR>
+vnoremap <leader>f :LspDocumentRangeFormat<CR>
+nnoremap <leader>f :LspDocumentFormatSync<CR>
 
+" Terminal within vim
 nnoremap <leader>n :term<CR>
 
-" TeX
-let g:polyglot_disabled = ['latex']
-let g:vimtex_fold_enabled=1
+" Enablle gdb within vim
+autocmd FileType c,cpp :packadd termdebug
+autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
+autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
+" Alternate cpp header/implementation
+autocmd FileType c,cpp nnoremap <leader>s :A<CR>
 
-" " set foldmethod=indent
-" set foldmethod=expr
-"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
-"   \ foldtext=lsp#ui#vim#folding#foldtext()
-"
+
+" set foldmethod=indent
+set foldmethod=expr
+  \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  \ foldtext=lsp#ui#vim#folding#foldtext()
+let g:lsp_fold_enabled = 1
+
+
 " " ALE
-let g:ale_linters = {
-      \ 'cpp': ['clangd', 'clangcheck'],
-      \}
+" let g:ale_linters = {
+"       \ 'cpp': ['clangd', 'clangcheck'],
+"       \}
 " let g:ale_fixers = {
 " \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 " \   'cpp': ['clang-format', 'clangtidy', 'uncrustify'],
@@ -376,10 +422,10 @@ let g:ale_linters = {
 " Symbol browser
 let g:vista_icon_indent = ["▸ ", ""]
 let g:vista#renderer#enable_icon = 0
-" let g:vista_executive_for = {
-"   \ 'cpp': 'vim_lsp',
-  " \ 'python': 'vim_lsp',
-"   \ }
+let g:vista_executive_for = {
+  \ 'cpp': 'vim_lsp',
+  \ 'python': 'vim_lsp',
+  \ }
 
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
@@ -393,26 +439,5 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc 
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
-
-set noshowmode
-set laststatus=2
-let g:lightline = {
-     \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste'],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'filetype'], ['charvaluehex' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
 " Debug layout
 let g:termdebug_wide = 163
-
-" Plugins debug
-" let g:lsp_log_verbose = 1
-" let g:lsp_log_file = 'vim-lsp.log'
