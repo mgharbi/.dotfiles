@@ -27,21 +27,24 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Language server protocol
-" Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 " UI
 Plug 'itchyny/lightline.vim'
-" Plug 'mengelbrecht/lightline-bufferline'
-" Display buffers and tabs
 Plug 'bagrat/vim-buffet'
 
+" Snippets async
 Plug 'vim-scripts/tComment'
 Plug 'SirVer/ultisnips'
 Plug 'mgharbi/vim-snippets'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
 " Plug 'w0rp/ale'
 
 Plug 'mbbill/undotree'
@@ -106,16 +109,6 @@ let g:lightline = {
       \ }
 let g:lightline.enable.tabline = 0
 let g:buffet_modified_icon	= ' +'
-
-" Plug 'vim-scripts/MatlabFilesEdition', {'for': 'matlab'}
-" Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
-" Plug 'Lokaltog/vim-easymotion'
-" Plug 'google/vim-ft-bzl'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'tmhedberg/SimpylFold'
-" Plugin 'nvie/vim-flake8'
-" Plugin 'mhinz/vim-startify'
-" Plugin 'ryanoasis/vim-devicons'
 
 
 " Folding
@@ -188,10 +181,6 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Remap tab in normal and visual
-"nnoremap <tab> %
-"vnoremap <tab> %
-
 " Easy window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -234,9 +223,9 @@ nnoremap <leader>h :Gitv!<CR>
 nnoremap <leader>q :tabp<CR>
 nnoremap <leader>w :tabn<CR>
 nnoremap <leader>e :tabnew %<CR>
-nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR>
-nnoremap <Leader><Tab> :bd<CR>
+" nnoremap <Tab> :bn<CR>
+" nnoremap <S-Tab> :bp<CR>
+" nnoremap <Leader><Tab> :bd<CR>
 
 
 "Gundo , undo tree
@@ -255,37 +244,6 @@ let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore thirdparty'
 
 " Tagbar
 nnoremap <leader>l :Vista!!<CR>
-
-" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
-" dictionary, source files, and completor to find matching words to complete.
-" Note: usual completion is on <C-n> but more trouble to press all the time.
-" Never type the same word twice and maybe learn a new spellings!
-" Use the Linux dictionary when spelling is in doubt.
-function! Tab_Or_Complete() abort
-  " If completor is already open the `tab` cycles through suggested completions.
-  if pumvisible()
-    return "\<C-N>"
-  " If completor is not open and we are in the middle of typing a word then
-  " `tab` opens completor menu.
-  " elseif col('.')>1
-  elseif col('.')>1 && strpart(getline('.'), col('.')-2, 1) =~ '\w\|\.\|\:'
-    return "\<C-x>\<C-o>"
-    " return "\<C-R>=completor#do('complete')\<CR>"
-  else
-    " If we aren't typing a word and we press `tab` simply do the normal `tab`
-    " action.
-    return "\<Tab>"
-  endif
-endfunction
-
-" Use `tab` key to select completions.  Default is arrow keys.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-
-" Use tab to trigger auto completion.  Default suggests completions as you type.
-let g:completor_auto_trigger = 1
-inoremap <expr> <Tab> Tab_Or_Complete()
 
 autocmd BufRead,BufNewFile *.tex set tw=80
 
@@ -351,10 +309,10 @@ if executable('ccls')
                     \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
                     \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }, 'highlight': { 'lsRanges' : v:true }},
                     \ })
-        autocmd FileType c setlocal omnifunc=lsp#complete
-        autocmd FileType cpp setlocal omnifunc=lsp#complete
-        autocmd FileType objc setlocal omnifunc=lsp#complete
-        autocmd FileType objcpp setlocal omnifunc=lsp#complete
+        " autocmd FileType c setlocal omnifunc=lsp#complete
+        " autocmd FileType cpp setlocal omnifunc=lsp#complete
+        " autocmd FileType objc setlocal omnifunc=lsp#complete
+        " autocmd FileType objcpp setlocal omnifunc=lsp#complete
     augroup end
 endif
 
@@ -382,13 +340,102 @@ if executable('pyls')
         \ })
 endif
 
-" LSP shortcuts
-nnoremap <leader>g :LspDefinition<CR>
-nnoremap <leader>d :LspHover<CR>
-nnoremap <leader>r :LspNextError<CR>
-nnoremap <leader>R :LspPreviousError<CR>
-vnoremap <leader>f :LspDocumentRangeFormat<CR>
-nnoremap <leader>f :LspDocumentFormatSync<CR>
+let g:lsp_fold_enabled = 0
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    " nmap <buffer> gd <plug>(lsp-definition)
+    " nmap <buffer> gr <plug>(lsp-references)
+    " nmap <buffer> gi <plug>(lsp-implementation)
+    " nmap <buffer> gt <plug>(lsp-type-definition)
+    " nmap <buffer> <leader>rn <plug>(lsp-rename)
+    " nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    " nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    "
+    " nmap <buffer> K <plug>(lsp-hover)
+
+    set foldmethod=expr
+      \ foldexpr=lsp#ui#vim#folding#foldexpr()
+      \ foldtext=lsp#ui#vim#folding#foldtext()
+
+    " LSP shortcuts
+    nnoremap <leader>g :LspDefinition<CR>
+    nnoremap <leader>d :LspHover<CR>
+    nnoremap <leader>r :LspNextDiagnostic<CR>
+    nnoremap <leader>R :LspPreviousDiagnostic<CR>
+    vnoremap <leader>f :LspDocumentRangeFormat<CR>
+    nnoremap <leader>f :LspDocumentFormatSync<CR>
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+" dictionary, source files, and completor to find matching words to complete.
+" Note: usual completion is on <C-n> but more trouble to press all the time.
+" Never type the same word twice and maybe learn a new spellings!
+" Use the Linux dictionary when spelling is in doubt.
+"
+" function! Tab_Or_Complete() abort
+"   " If completor is already open the `tab` cycles through suggested completions.
+"   if pumvisible()
+"     return "\<C-N>"
+"   " If completor is not open and we are in the middle of typing a word then
+"   " `tab` opens completor menu.
+"   " elseif col('.')>1
+"   elseif col('.')>1 && strpart(getline('.'), col('.')-2, 1) =~ '\w\|\.\|\:'
+"     return "\<C-x>\<C-o>"
+"     " return "\<C-R>=completor#do('complete')\<CR>"
+"   else
+"     " If we aren't typing a word and we press `tab` simply do the normal `tab`
+"     " action.
+"     return "\<Tab>"
+"   endif
+" endfunction
+
+" Use `tab` key to select completions.  Default is arrow keys.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+" " Use tab to trigger auto completion.  Default suggests completions as you type.
+" let g:completor_auto_trigger = 1
+" inoremap <expr> <Tab> Tab_Or_Complete()
+
+" imap <c-space> <Plug>(asyncomplete_force_refresh)
+
+let g:asyncomplete_auto_popup = 0
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+let g:UltiSnipsExpandTrigger="<C-J>"
+call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+let g:asyncomplete_auto_completeopt = 0
+set completeopt=menuone,noinsert,noselect,preview
 
 " Terminal within vim
 nnoremap <leader>n :term<CR>
@@ -402,10 +449,6 @@ autocmd FileType c,cpp nnoremap <leader>s :A<CR>
 
 
 " set foldmethod=indent
-set foldmethod=expr
-  \ foldexpr=lsp#ui#vim#folding#foldexpr()
-  \ foldtext=lsp#ui#vim#folding#foldtext()
-let g:lsp_fold_enabled = 1
 
 
 " " ALE
