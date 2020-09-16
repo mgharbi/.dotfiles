@@ -342,7 +342,7 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer><leader>r :LspNextDiagnostic<CR>
     nnoremap <buffer><leader>R :LspPreviousDiagnostic<CR>
     vnoremap <buffer><leader>f :LspDocumentRangeFormat<CR>
-    nnoremap <buffer><leader>f :LspDocumentFormatSync<CR>
+    nnoremap <buffer><leader>F :LspDocumentFormatSync<CR>
 endfunction
 
 augroup lsp_install
