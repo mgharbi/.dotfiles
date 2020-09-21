@@ -50,6 +50,9 @@ Plug 'SirVer/ultisnips'
 Plug 'mgharbi/vim-snippets'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
+Plug 'keith/swift.vim'
+Plug 'kentaroi/ultisnips-swift'
+
 " Undos
 Plug 'mbbill/undotree'
 
@@ -322,6 +325,15 @@ if executable('pyls')
         \ 'cmd': {server_info->['pyls']},
         \ 'whitelist': ['python', 'python3'],
         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+endif
+
+" Swift LSP
+if executable('sourcekit-lsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'sourcekit-lsp',
+        \ 'cmd': {server_info->['sourcekit-lsp']},
+        \ 'whitelist': ['swift'],
         \ })
 endif
 
