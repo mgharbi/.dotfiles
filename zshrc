@@ -63,8 +63,8 @@ alias localenv="vi $HOME/localenv.sh"
 alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
- 
-  
+
+
 # Python
 export PYTHONPATH=:$PYTHONPATH
 if (( $+commands[ipython] )); then
@@ -97,6 +97,21 @@ function update-x11-forwarding
 
 export HALIDE_DISTRIB_DIR=$HOME/projects/Halide
 
-# Activate Conda env
-export PATH="$HOME/anaconda/bin":$PATH
-source activate
+# # Activate Conda env
+# export PATH="$HOME/anaconda/bin":$PATH
+# source activate
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/mgharbi/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/mgharbi/anaconda/etc/profile.d/conda.sh" ]; then
+        . "/Users/mgharbi/anaconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/mgharbi/anaconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
