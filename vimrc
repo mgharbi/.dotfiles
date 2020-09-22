@@ -307,37 +307,49 @@ endif
 
 " Latex LSP
 if executable('texlab')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'texlab',
-        \ 'cmd': {server_info->['texlab']},
-        \ 'config': {
-        \     'hover_conceal': 0,
-        \ },
-        \ 'whitelist': ['bib','tex'],
-        \ })
+  augroup lsp_tex
+    autocmd!
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'texlab',
+          \ 'cmd': {server_info->['texlab']},
+          \ 'config': {
+          \     'hover_conceal': 0,
+          \ },
+          \ 'whitelist': ['bib','tex'],
+          \ })
+  augroup end
 endif
 
 " Python LSP
 " requires 'pip install python-language-server[all]'
 if executable('pyls')
+  augroup lsp_py
+    autocmd!
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
         \ 'whitelist': ['python', 'python3'],
         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
         \ })
+  augroup end
 endif
 
 " Swift LSP
 if executable('sourcekit-lsp')
+  augroup lsp_swift
+    autocmd!
     au User lsp_setup call lsp#register_server({
         \ 'name': 'sourcekit-lsp',
         \ 'cmd': {server_info->['sourcekit-lsp']},
         \ 'whitelist': ['swift'],
         \ })
+  augroup end
 endif
 
+" CMake, install with 'pip install cmake-language-server'
 if executable('cmake-language-server')
+  augroup lsp_cmake
+    autocmd!
     au User lsp_setup call lsp#register_server({
         \ 'name': 'cmake-language-server',
         \ 'cmd': {server_info->['cmake-language-server']},
@@ -345,15 +357,7 @@ if executable('cmake-language-server')
         \ 'initialization_options': {
         \   'buildDirectory': 'build',
         \ }})
-        " au User lsp_setup call lsp#register_server({
-        "             \ 'name': 'cmake',
-        "             \ 'cmd': {server_info->['cmake-language-server']},
-        "             \ 'whitelist': [ 'CMakeLists.txt', 'cmake' ],
-		" 			\ 'initialization_options': {
-		" 			\   'buildDirectory': 'build',
-		" 			\ }})
-        " autocmd FileType CMakeLists.txt setlocal omnifunc=lsp#complete
-        " autocmd FileType cmake setlocal omnifunc=lsp#complete
+  augroup end
 endif
 
 let g:lsp_fold_enabled = 1
