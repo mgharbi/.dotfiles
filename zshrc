@@ -97,10 +97,6 @@ function update-x11-forwarding
 
 export HALIDE_DISTRIB_DIR=$HOME/projects/Halide
 
-# # Activate Conda env
-# export PATH="$HOME/anaconda/bin":$PATH
-# source activate
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/mgharbi/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
