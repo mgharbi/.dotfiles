@@ -337,6 +337,25 @@ if executable('sourcekit-lsp')
         \ })
 endif
 
+if executable('cmake-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'cmake-language-server',
+        \ 'cmd': {server_info->['cmake-language-server']},
+        \ 'whitelist': [ 'CMakeLists.txt', 'cmake' ],
+        \ 'initialization_options': {
+        \   'buildDirectory': 'build',
+        \ }})
+        " au User lsp_setup call lsp#register_server({
+        "             \ 'name': 'cmake',
+        "             \ 'cmd': {server_info->['cmake-language-server']},
+        "             \ 'whitelist': [ 'CMakeLists.txt', 'cmake' ],
+		" 			\ 'initialization_options': {
+		" 			\   'buildDirectory': 'build',
+		" 			\ }})
+        " autocmd FileType CMakeLists.txt setlocal omnifunc=lsp#complete
+        " autocmd FileType cmake setlocal omnifunc=lsp#complete
+endif
+
 let g:lsp_fold_enabled = 1
 
 function! s:on_lsp_buffer_enabled() abort
