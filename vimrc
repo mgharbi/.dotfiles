@@ -13,6 +13,8 @@ set colorcolumn=80
 set nocompatible " be iMproved
 filetype off     " required
 
+set updatetime=300
+
 " Load Plug
 if empty(glob("~/.vim/autoload/plug.vim"))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -23,6 +25,11 @@ endif
 " TeX
 let g:polyglot_disabled = ['latex']
 let g:vimtex_fold_enabled=1
+let g:cpp_fold_enabled=1
+
+set redrawtime=5000
+
+set foldmethod=expr
 
 call plug#begin('~/.vim/plugged')
 
@@ -293,16 +300,16 @@ let g:lsp_diagnostics_echo_cursor = 1
 
 " C++ LSP
 if executable('ccls')
-    augroup lsp_ccls
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'ccls',
-                    \ 'cmd': {server_info->['ccls']},
-                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-                    \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-                    \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }, 'highlight': { 'lsRanges' : v:true }},
-                    \ })
-    augroup end
+  augroup lsp_ccls
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'ccls',
+          \ 'cmd': {server_info->['ccls']},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+          \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }, 'highlight': { 'lsRanges' : v:true }},
+          \ })
+  augroup end
 endif
 
 " Latex LSP
@@ -367,9 +374,11 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 
-    set foldmethod=expr
-      \ foldexpr=lsp#ui#vim#folding#foldexpr()
-      \ foldtext=lsp#ui#vim#folding#foldtext()
+    set foldexpr=lsp#ui#vim#folding#foldexpr()
+    set foldtext=lsp#ui#vim#folding#foldtext()
+    " set foldmethod=expr
+    "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+    "   \ foldtext=lsp#ui#vim#folding#foldtext()
 
     " LSP shortcuts
     nnoremap <buffer><leader>g :LspDefinition<CR>
@@ -386,10 +395,10 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-" Use `tab` key to select completions.  Default is arrow keys.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" " Use `tab` key to select completions.  Default is arrow keys.
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 let g:asyncomplete_auto_popup = 0
 
@@ -462,7 +471,7 @@ set statusline+=%{NearestMethodOrFunction()}
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Debug layout
 let g:termdebug_wide = 163
