@@ -425,6 +425,10 @@ set completeopt=menuone,noinsert,noselect,preview
 
 " Terminal within vim
 nnoremap <leader>n :term<CR>
+set termwinsize=15x0
+" Make it open in the bottom
+set splitbelow
+
 
 " Enablle gdb within vim
 autocmd FileType c,cpp :packadd termdebug
