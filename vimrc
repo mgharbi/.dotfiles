@@ -13,6 +13,8 @@ set colorcolumn=80
 set nocompatible " be iMproved
 filetype off     " required
 
+set updatetime=300
+
 " Load Plug
 if empty(glob("~/.vim/autoload/plug.vim"))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -20,26 +22,54 @@ if empty(glob("~/.vim/autoload/plug.vim"))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" TeX
+let g:polyglot_disabled = ['latex']
+let g:vimtex_fold_enabled=1
+let g:cpp_fold_enabled=1
+
+set redrawtime=5000
+
+set foldmethod=expr
+
 call plug#begin('~/.vim/plugged')
 
-"  Plugins
-Plug 'tpope/vim-eunuch'
+" Language server protocol
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+" Code folding
+Plug 'Konfekt/FastFold'
+
+" Grammar checker
+Plug 'rhysd/vim-grammarous'
+
+" UI
 Plug 'itchyny/lightline.vim'
+Plug 'bagrat/vim-buffet'
+
+" Snippets async
 Plug 'vim-scripts/tComment'
 Plug 'SirVer/ultisnips'
 Plug 'mgharbi/vim-snippets'
-Plug 'maralla/completor.vim'
-Plug 'w0rp/ale'
-Plug 'bagrat/vim-workspace'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+
+Plug 'keith/swift.vim'
+Plug 'kentaroi/ultisnips-swift'
+
+" Undos
 Plug 'mbbill/undotree'
-Plug 'majutsushi/tagbar'
+
+" Class and method list
+Plug 'liuchengxu/vista.vim'
 
 " Search
 Plug 'rking/ag.vim'
 Plug 'Chun-Yang/vim-action-ag'
 Plug '~/.fzf'
-
-Plug 'airblade/vim-gitgutter'
 
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
@@ -52,14 +82,23 @@ Plug 'christoomey/vim-tmux-navigator'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular'
+
+" Latex
+Plug 'lervag/vimtex'
 
 " Indent and syntax
 Plug 'sheerun/vim-polyglot'
 
 " Alternate header/src
 Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
+
+" Line-wrapping and text edit
+Plug 'reedes/vim-pencil'
+
+
 
 filetype plugin indent on
 call plug#end()
@@ -75,20 +114,15 @@ let g:lightline = {
       \              [ 'percent' ],
       \              [ 'filetype'], ['charvaluehex' ] ]
       \ },
+      \ 'enable' : {
+      \     'tabline': 0
+      \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-
-" Plug 'vim-scripts/MatlabFilesEdition', {'for': 'matlab'}
-" Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
-" Plug 'Lokaltog/vim-easymotion'
-" Plug 'google/vim-ft-bzl'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'tmhedberg/SimpylFold'
-" Plugin 'nvie/vim-flake8'
-" Plugin 'mhinz/vim-startify'
-" Plugin 'ryanoasis/vim-devicons'
+let g:lightline.enable.tabline = 0
+let g:buffet_modified_icon	= ' +'
 
 
 " Folding
@@ -161,10 +195,6 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Remap tab in normal and visual
-nnoremap <tab> %
-vnoremap <tab> %
-
 " Easy window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -180,6 +210,7 @@ if !exists('g:spf13_no_keyfixes')
         command! -bang -nargs=* -complete=file Wq wq<bang> <args>
         command! -bang -nargs=* -complete=file WQ wq<bang> <args>
         command! -bang Wa wa<bang>
+        command! -bang Vs vs<bang>
         command! -bang WA wa<bang>
         command! -bang Q q<bang>
         command! -bang QA qa<bang>
@@ -192,33 +223,25 @@ endif
 au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake 
 
 " compile
-nnoremap <leader>m :!make<CR>
-" nnoremap <leader>m :!cd build && make<CR>
+nnoremap <leader>m :!make -j<CR>
+nnoremap <leader><leader>m :!cd build && make -j<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
 nmap Q gqap
 
-" " Nerd Tree
-" nnoremap <leader>r :NERDTreeToggle<CR>
-" let NERDTreeIgnore = ['\.pyc$']
-
 " Gitv
-nnoremap <leader>g :Gitv<CR>
+" nnoremap <leader>g :Gitv<CR>
 nnoremap <leader>h :Gitv!<CR>
 
-" Tabs handling
+" Tabs and buffers handling
 nnoremap <leader>q :tabp<CR>
 nnoremap <leader>w :tabn<CR>
-" nnoremap <leader>e :tabnew<CR>
-nnoremap <leader>e :WSTabNew<CR>
-nnoremap <leader>r :tabclose<CR>
-nnoremap <leader>1 :WSPrev<CR>
-nnoremap <leader>2 :WSNext<CR>
-nnoremap <leader>3 :WSClose<CR>
+nnoremap <leader>e :tabnew %<CR>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
+nnoremap <Leader><Tab> :bd<CR>
 
-" Alternate cpp header/implementation
-nnoremap <leader>s :A<CR>
 
 "Gundo , undo tree
 nnoremap <leader>z :UndotreeToggle<CR>
@@ -230,45 +253,20 @@ nnoremap <leader>a :Ag
 nnoremap <leader>c<space> :TComment<CR>
 vnoremap <leader>c<space> :TComment<CR>
 
-" CtrlP
-" nnoremap <leader>t :CtrlPMixed<CR>
+" Fuzzy search
 nnoremap <leader>t :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore thirdparty'
 
 " Tagbar
-nnoremap <leader>l :Tagbar<CR>
+nnoremap <leader>l :Vista!!<CR>
 
-" YCM
-" let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/ycm/cpp/ycm/.ycm_extra_conf.py'
-" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" nnoremap <leader>d :YcmCompleter GetDoc<CR>
-nnoremap <leader>g :call completor#do('definition')<CR>
-nnoremap <leader>d :call completor#do('doc')<CR>
-let g:completor_doc_position='top'
-let g:completor_clang_binary='clang'
-let g:completor_python_binary = '/Users/mgharbi/anaconda/bin/python'
-
-" Fugitive
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gl :Glog<CR>
-
-autocmd BufRead,BufNewFile *.tex set  tw=80
+autocmd BufRead,BufNewFile *.tex set tw=80
 
 " Ignore these folders for fuzzy matching
-set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,bin/**,doc/**,third_party/**
-set wildmenu					" show list instead of just completing
+set wildignore+=data/**,lib/**,build/**,import/**,log/**,external/**,output/**,doc/**,third_party/**,vendor/**,vendors/**
+set wildmenu " show list instead of just completing
 " command <Tab> completion, list matches, then longest common part, then all.
 set wildmode=list:longest,full	
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|o|d)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 " Unbind run
 let g:pymode_run_bind = ''
@@ -283,26 +281,13 @@ set bg=dark
 " Tab related
 set expandtab
 set smarttab
-" set shiftwidth=2
-" set tabstop=2
-" set softtabstop=2
-
-
-" "python with virtualenv support
-" py << EOF
-" import os
-" import sys
-" if 'VIRTUAL_ENV' in os.environ:
-"   project_base_dir = os.environ['VIRTUAL_ENV']
-"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"   execfile(activate_this, dict(__file__=activate_this))
-" EOF
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 
 " Allow per-project .vimrc
 set exrc
 set secure
-
-set foldmethod=indent
 
 set guicursor=
 autocmd OptionSet guicursor noautocmd set guicursor=
@@ -310,8 +295,187 @@ autocmd OptionSet guicursor noautocmd set guicursor=
 let g:gitgutter_sign_added = '.'
 let g:gitgutter_sign_modified = '.'
 let g:gitgutter_sign_removed = '.'
-" let g:gitgutter_sign_removed_first_line = '^^'
-" let g:gitgutter_sign_modified_removed = 'ww'
 
-" let $FZF_DEFAULT_COMMAND = 'fd --type f'
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let g:lsp_diagnostics_echo_cursor = 1
+
+" C++ LSP
+if executable('ccls')
+  augroup lsp_ccls
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'ccls',
+          \ 'cmd': {server_info->['ccls']},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+          \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }, 'highlight': { 'lsRanges' : v:true }},
+          \ })
+  augroup end
+endif
+
+" Latex LSP
+if executable('texlab')
+  augroup lsp_tex
+    autocmd!
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'texlab',
+          \ 'cmd': {server_info->['texlab']},
+          \ 'config': {
+          \     'hover_conceal': 0,
+          \ },
+          \ 'whitelist': ['bib','tex'],
+          \ })
+  augroup end
+endif
+
+" Python LSP
+" requires 'pip install python-language-server[all]'
+if executable('pyls')
+  augroup lsp_py
+    autocmd!
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python', 'python3'],
+        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+        \ })
+  augroup end
+endif
+
+" Swift LSP
+if executable('sourcekit-lsp')
+  augroup lsp_swift
+    autocmd!
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'sourcekit-lsp',
+        \ 'cmd': {server_info->['sourcekit-lsp']},
+        \ 'whitelist': ['swift'],
+        \ })
+  augroup end
+endif
+
+" CMake, install with 'pip install cmake-language-server'
+if executable('cmake-language-server')
+  augroup lsp_cmake
+    autocmd!
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'cmake-language-server',
+        \ 'cmd': {server_info->['cmake-language-server']},
+        \ 'whitelist': [ 'CMakeLists.txt', 'cmake' ],
+        \ 'initialization_options': {
+        \   'buildDirectory': 'build',
+        \ }})
+  augroup end
+endif
+
+let g:lsp_fold_enabled = 1
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+
+    set foldexpr=lsp#ui#vim#folding#foldexpr()
+    set foldtext=lsp#ui#vim#folding#foldtext()
+    " set foldmethod=expr
+    "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+    "   \ foldtext=lsp#ui#vim#folding#foldtext()
+
+    " LSP shortcuts
+    nnoremap <buffer><leader>g :LspDefinition<CR>
+    nnoremap <buffer><leader>d :LspHover<CR>
+    nnoremap <buffer><leader>r :LspNextDiagnostic<CR>
+    nnoremap <buffer><leader>R :LspPreviousDiagnostic<CR>
+    vnoremap <buffer><leader>f :LspDocumentRangeFormat<CR>
+    nnoremap <buffer><leader>F :LspDocumentFormatSync<CR>
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" " Use `tab` key to select completions.  Default is arrow keys.
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+let g:asyncomplete_auto_popup = 0
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+let g:UltiSnipsExpandTrigger="<C-J>"
+call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+
+let g:asyncomplete_auto_completeopt = 0
+set completeopt=menuone,noinsert,noselect,preview
+
+" Terminal within vim
+nnoremap <leader>n :term<CR>
+set termwinsize=15x0
+" Make it open in the bottom
+set splitbelow
+
+
+" Enablle gdb within vim
+autocmd FileType c,cpp :packadd termdebug
+autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
+autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
+" Alternate cpp header/implementation
+autocmd FileType c,cpp nnoremap <leader>s :A<CR>
+
+" Grammar checker
+let g:grammarous#show_first_error = 1
+let g:grammarous#disabled_rules = {
+            \ '*' : ['UNDERSCORE_RULE'],
+            \ }
+
+nnoremap <leader>x :GrammarousCheck<CR>
+let g:grammarous#hooks = {}
+function! g:grammarous#hooks.on_check(errs) abort
+    nmap <buffer><leader>v <Plug>(grammarous-move-to-next-error)
+    nmap <buffer><leader>V <Plug>(grammarous-move-to-previous-error)
+    nmap <leader>x <Plug>(grammarous-reset)
+endfunction
+
+function! g:grammarous#hooks.on_reset(errs) abort
+    nunmap <buffer><leader>v
+    nunmap <buffer><leader>V
+    nmap <leader>x :GrammarousCheck<CR>
+endfunction
+
+" Symbol browser
+let g:vista_icon_indent = ["▸ ", ""]
+let g:vista#renderer#enable_icon = 0
+let g:vista_executive_for = {
+  \ 'cpp': 'vim_lsp',
+  \ 'python': 'vim_lsp',
+  \ }
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc 
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" Debug layout
+let g:termdebug_wide = 163
