@@ -2,7 +2,7 @@ platform=`uname`
 
 if [[ $platform == Darwin ]]; then
 else
-  fpath+=('/usr/local/lib/node_modules/pure-prompt/functions')
+  fpath+=$HOME/.zsh/pure
 fi
 
 autoload -U promptinit && promptinit
