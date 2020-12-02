@@ -67,8 +67,8 @@ alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # Python
 export PYTHONPATH=:$PYTHONPATH
-if (( $+commands[ipython] )); then
-    alias py='nocorrect ipython'
+if (( $+commands[ipython3] )); then
+    alias py='nocorrect ipython3'
 else
     alias py='python'
 fi

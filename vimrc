@@ -29,8 +29,6 @@ let g:cpp_fold_enabled=1
 
 set redrawtime=5000
 
-set foldmethod=expr
-
 call plug#begin('~/.vim/plugged')
 
 " Language server protocol
@@ -126,7 +124,10 @@ let g:buffet_modified_icon	= ' +'
 
 
 " Folding
+set foldmethod=expr
 set foldlevel=99
+let g:fastfold_savehook = 0
+" set nofoldenable
 nnoremap <space> za
 
 " General config
