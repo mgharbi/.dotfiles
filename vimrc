@@ -377,9 +377,6 @@ function! s:on_lsp_buffer_enabled() abort
 
     set foldexpr=lsp#ui#vim#folding#foldexpr()
     set foldtext=lsp#ui#vim#folding#foldtext()
-    " set foldmethod=expr
-    "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
-    "   \ foldtext=lsp#ui#vim#folding#foldtext()
 
     " LSP shortcuts
     nnoremap <buffer><leader>g :LspDefinition<CR>
@@ -396,10 +393,6 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-" " Use `tab` key to select completions.  Default is arrow keys.
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 let g:asyncomplete_auto_popup = 0
 
@@ -426,6 +419,10 @@ set completeopt=menuone,noinsert,noselect,preview
 
 " Terminal within vim
 nnoremap <leader>n :term<CR>
+set termwinsize=15x0
+" Make it open in the bottom
+set splitbelow
+
 
 " Enablle gdb within vim
 autocmd FileType c,cpp :packadd termdebug

@@ -83,8 +83,10 @@ def main():
                 os.system("conda install pytorch-nightly cuda92 -c pytorch")
 
                 print("Installing pure prompt")
-                os.system("sudo npm install --global pure-prompt")
-
+                # os.system("sudo npm install --global pure-prompt")
+                os.system("mkdir -p \"$HOME/.zsh\"")
+                os.system("git clone https://github.com/sindresorhus/pure.git \"$HOME/.zsh/pure\"")
+)
                 print("Installing zsh syntax highlighting")
                 os.system('git clone https://github.com/zsh-users/zsh-syntax-highlighting.git')
                 os.system("echo \"source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\" >> ${ZDOTDIR:-$HOME}/.zshrc")

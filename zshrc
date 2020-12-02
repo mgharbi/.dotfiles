@@ -2,7 +2,7 @@ platform=`uname`
 
 if [[ $platform == Darwin ]]; then
 else
-  fpath+=('/usr/local/lib/node_modules/pure-prompt/functions')
+  fpath+=$HOME/.zsh/pure
 fi
 
 autoload -U promptinit && promptinit
@@ -99,14 +99,14 @@ export HALIDE_DISTRIB_DIR=$HOME/projects/Halide
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mgharbi/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$("$HOME/anaconda/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/mgharbi/anaconda/etc/profile.d/conda.sh" ]; then
-        . "/Users/mgharbi/anaconda/etc/profile.d/conda.sh"
+    if [ -f "$HOME/anaconda/etc/profile.d/conda.sh" ]; then
+        . "$HOME/anaconda/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/mgharbi/anaconda/bin:$PATH"
+        export PATH="$HOME/anaconda/bin:$PATH"
     fi
 fi
 unset __conda_setup
