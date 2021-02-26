@@ -23,8 +23,8 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 " TeX
-let g:polyglot_disabled = ['latex']
-let g:vimtex_fold_enabled=1
+let g:polyglot_disabled = ['latex', 'html']
+let g:vimtex_fold_enabled=0
 let g:cpp_fold_enabled=1
 
 set redrawtime=5000
@@ -43,7 +43,7 @@ Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'Konfekt/FastFold'
 
 " Grammar checker
-Plug 'rhysd/vim-grammarous'
+" Plug 'rhysd/vim-grammarous'
 
 " UI
 Plug 'itchyny/lightline.vim'
@@ -90,6 +90,9 @@ Plug 'lervag/vimtex'
 " Indent and syntax
 Plug 'sheerun/vim-polyglot'
 
+Plug 'alvan/vim-closetag'
+
+
 " Alternate header/src
 Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
 
@@ -127,6 +130,7 @@ let g:buffet_modified_icon	= ' +'
 set foldmethod=expr
 set foldlevel=99
 let g:fastfold_savehook = 0
+nmap zuz <Plug>(FastFoldUpdate)
 " set nofoldenable
 nnoremap <space> za
 
@@ -156,7 +160,7 @@ set noerrorbells
 set textwidth=0 
 set wrapmargin=0
 set ttyfast
- set lazyredraw
+set lazyredraw
 set regexpengine=1
 
 " Color, syntax, etc
@@ -341,6 +345,7 @@ if executable('pyls')
         \ })
   augroup end
 endif
+" \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}, 'pyls_mypy': {'enabled': v:true, 'live_mode': v:false }}}}
 
 " Swift LSP
 if executable('sourcekit-lsp')
