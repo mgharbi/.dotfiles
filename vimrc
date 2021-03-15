@@ -13,7 +13,7 @@ set colorcolumn=80
 set nocompatible " be iMproved
 filetype off     " required
 
-set updatetime=300
+" set updatetime=300
 
 " Load Plug
 if empty(glob("~/.vim/autoload/plug.vim"))
@@ -39,11 +39,11 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 
+" Debugger
+Plug 'puremourning/vimspector'
+
 " Code folding
 Plug 'Konfekt/FastFold'
-
-" Grammar checker
-" Plug 'rhysd/vim-grammarous'
 
 " UI
 Plug 'itchyny/lightline.vim'
@@ -54,9 +54,6 @@ Plug 'vim-scripts/tComment'
 Plug 'SirVer/ultisnips'
 Plug 'mgharbi/vim-snippets'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-
-Plug 'keith/swift.vim'
-Plug 'kentaroi/ultisnips-swift'
 
 " Undos
 Plug 'mbbill/undotree'
@@ -72,7 +69,6 @@ Plug '~/.fzf'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
 
 Plug 'altercation/vim-colors-solarized'
 Plug 'christoomey/vim-tmux-navigator'
@@ -89,25 +85,24 @@ Plug 'lervag/vimtex'
 
 " Indent and syntax
 Plug 'sheerun/vim-polyglot'
+Plug 'keith/swift.vim'
+Plug 'kentaroi/ultisnips-swift'
 
 Plug 'alvan/vim-closetag'
-
 
 " Alternate header/src
 Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
 
-" Line-wrapping and text edit
-Plug 'reedes/vim-pencil'
-
-
-
-filetype plugin indent on
 call plug#end()
+
+" filetype plugin indent on
+" filetype indent on
+
 
 set noshowmode
 set laststatus=2
 let g:lightline = {
-     \ 'colorscheme': 'wombat',
+     \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste'],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -140,13 +135,13 @@ set encoding=utf-8
 set number                      " line numbering
 set printoptions=number:y
 set clipboard=unnamed           
-set ai                          " Auto indent
-set si                          " Smart indent
+" set ai                          " Auto indent
+" set si                          " Smart indent
 set nowrap                      " Wrap lines
 set lbr                         " Linebreak on 500 characters
-set cursorline                  " highlight current line
+" set cursorline                  " highlight current line
 set backspace=indent,eol,start	
-set cindent
+" set cindent
 set cinkeys=0{,0},:,!^F,o,O,e	
 set fileformat=unix	            
 set listchars=tab:\ \ ,trail:�  
@@ -167,10 +162,10 @@ set regexpengine=1
 syntax on                       " Use color syntax highlighting.
 let python_highlight_all=1
 filetype plugin on
-filetype indent on
-let g:solarized_termtrans=1
-colorscheme solarized
 set bg=dark
+" Fix gutter
+autocmd ColorScheme * highlight! link SignColumn Normal
+colorscheme solarized
 
 " Undo/history 
 set history=1000
@@ -194,7 +189,7 @@ inoremap jj <ESC>
 let mapleader = ","
 nnoremap ; :
 
-" De-activate arrowkeys, because har'core is better and faster
+" De-activate arrowkeys
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -284,24 +279,26 @@ set diffopt+=vertical
 set bg=dark
 
 " Tab related
-set expandtab
-set smarttab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+" set expandtab
+" set smarttab
+" set shiftwidth=4
+" set tabstop=4
+" set softtabstop=4
 
 " Allow per-project .vimrc
 set exrc
 set secure
 
-set guicursor=
-autocmd OptionSet guicursor noautocmd set guicursor=
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_modified = 'm'
 
-let g:gitgutter_sign_added = '.'
-let g:gitgutter_sign_modified = '.'
-let g:gitgutter_sign_removed = '.'
-
+let g:lsp_fold_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_signs_error = {'text': '!'}
+let g:lsp_diagnostics_signs_warning = {'text': 'w'}
+let g:lsp_diagnostics_signs_information = {'text': 'i'}
+let g:lsp_diagnostics_signs_hint = {'text': 'h'}
 
 " C++ LSP
 if executable('ccls')
@@ -345,7 +342,6 @@ if executable('pyls')
         \ })
   augroup end
 endif
-" \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}, 'pyls_mypy': {'enabled': v:true, 'live_mode': v:false }}}}
 
 " Swift LSP
 if executable('sourcekit-lsp')
@@ -373,7 +369,6 @@ if executable('cmake-language-server')
   augroup end
 endif
 
-let g:lsp_fold_enabled = 1
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -429,32 +424,21 @@ set termwinsize=15x0
 set splitbelow
 
 
-" Enablle gdb within vim
-autocmd FileType c,cpp :packadd termdebug
-autocmd FileType c,cpp nnoremap <leader>b :Break<CR>
-autocmd FileType c,cpp nnoremap <leader>B :Clear<CR>
+" Debugging
+" let g:vimspector_enable_mappings = 'HUMAN'
+nmap <leader>s <Plug>VimspectorStepOver
+nmap <leader>S <Plug>VimspectorStepInto
+nmap <leader>o <Plug>VimspectorStepOut
+nmap <leader>c <Plug>VimspectorContinue
+nmap <leader>C <Plug>VimspectorStop
+nmap <leader>x <Plug>VimspectorRestart
+nmap <leader>X :call vimspector#Reset()<CR>
+nmap <leader>b <Plug>VimspectorToggleBreakpoint
+nmap <leader>B :call vimspector#ClearBreakpoints()<CR>
+
 " Alternate cpp header/implementation
 autocmd FileType c,cpp nnoremap <leader>s :A<CR>
 
-" Grammar checker
-let g:grammarous#show_first_error = 1
-let g:grammarous#disabled_rules = {
-            \ '*' : ['UNDERSCORE_RULE'],
-            \ }
-
-nnoremap <leader>x :GrammarousCheck<CR>
-let g:grammarous#hooks = {}
-function! g:grammarous#hooks.on_check(errs) abort
-    nmap <buffer><leader>v <Plug>(grammarous-move-to-next-error)
-    nmap <buffer><leader>V <Plug>(grammarous-move-to-previous-error)
-    nmap <leader>x <Plug>(grammarous-reset)
-endfunction
-
-function! g:grammarous#hooks.on_reset(errs) abort
-    nunmap <buffer><leader>v
-    nunmap <buffer><leader>V
-    nmap <leader>x :GrammarousCheck<CR>
-endfunction
 
 " Symbol browser
 let g:vista_icon_indent = ["▸ ", ""]
@@ -468,13 +452,7 @@ function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-set statusline+=%{NearestMethodOrFunction()}
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc 
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" set statusline+=%{NearestMethodOrFunction()}
 
 " Debug layout
 let g:termdebug_wide = 163
