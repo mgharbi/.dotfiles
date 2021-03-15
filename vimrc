@@ -295,10 +295,7 @@ let g:gitgutter_sign_modified = 'm'
 
 let g:lsp_fold_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_diagnostics_signs_error = {'text': '!'}
-let g:lsp_diagnostics_signs_warning = {'text': 'w'}
-let g:lsp_diagnostics_signs_information = {'text': 'i'}
-let g:lsp_diagnostics_signs_hint = {'text': 'h'}
+
 
 " C++ LSP
 if executable('ccls')
@@ -435,6 +432,17 @@ nmap <leader>x <Plug>VimspectorRestart
 nmap <leader>X :call vimspector#Reset()<CR>
 nmap <leader>b <Plug>VimspectorToggleBreakpoint
 nmap <leader>B :call vimspector#ClearBreakpoints()<CR>
+
+"Gutter
+sign define vimspectorBPDisabled text=\ ● texthl=Normal
+highlight link LspWarningHighlight Normal
+highlight LspWarningText ctermfg=3
+" WarningMsg
+highlight link LspErrorHighlight Error
+highlight link LspErrorText Error
+let g:lsp_diagnostics_signs_warning = {'text': '\ !'}
+let g:lsp_diagnostics_signs_error = {'text': '\ ▶'}
+
 
 " Alternate cpp header/implementation
 autocmd FileType c,cpp nnoremap <leader>s :A<CR>
