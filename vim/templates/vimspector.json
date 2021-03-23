@@ -1,0 +1,34 @@
+{
+  "configurations": {
+    "Python: Run current script": {
+      "default": true,
+      "autoselect": true,
+      "adapter": "debugpy",
+      "breakpoints": {
+        "exception": {
+          "caught": "N",
+          "raised": "N",
+          "uncaught": "Y"
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${file}"
+      }
+    },
+    "C++": {
+      "adapter": "lldb-vscode",
+      "autoselect": true,
+      "configuration": {
+        "name": "cpp",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${cwd}/main",
+        "args": ["*${ProgramArgs}"],
+        "externalConsole": false,
+        "stopAtEntry": true,
+        "MIMode": "lldb"
+      }
+    }
+  }
+}

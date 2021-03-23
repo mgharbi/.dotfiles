@@ -52,7 +52,7 @@ Plug 'bagrat/vim-buffet'
 " Snippets async
 Plug 'vim-scripts/tComment'
 Plug 'SirVer/ultisnips'
-Plug 'mgharbi/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 " Undos
@@ -321,7 +321,7 @@ if executable('texlab')
           \ 'config': {
           \     'hover_conceal': 0,
           \ },
-          \ 'whitelist': ['bib','tex'],
+          \ 'whitelist': ['bib','tex', 'sty'],
           \ })
   augroup end
 endif
@@ -405,6 +405,8 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 let g:UltiSnipsExpandTrigger="<C-J>"
+let g:UltiSnipsListSnippets="<C-s>"
+let g:UltiSnipsEditSplit="vertical"
 call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
         \ 'name': 'ultisnips',
         \ 'whitelist': ['*'],
@@ -420,18 +422,6 @@ set termwinsize=15x0
 " Make it open in the bottom
 set splitbelow
 
-
-" Debugging
-" let g:vimspector_enable_mappings = 'HUMAN'
-nmap <leader>s <Plug>VimspectorStepOver
-nmap <leader>S <Plug>VimspectorStepInto
-nmap <leader>o <Plug>VimspectorStepOut
-nmap <leader>c <Plug>VimspectorContinue
-nmap <leader>C <Plug>VimspectorStop
-nmap <leader>x <Plug>VimspectorRestart
-nmap <leader>X :call vimspector#Reset()<CR>
-nmap <leader>b <Plug>VimspectorToggleBreakpoint
-nmap <leader>B :call vimspector#ClearBreakpoints()<CR>
 
 "Gutter
 sign define vimspectorBPDisabled text=\ ● texthl=Normal
@@ -464,3 +454,86 @@ endfunction
 
 " Debug layout
 let g:termdebug_wide = 163
+
+" Vimspector customization
+func! s:CustomizeVimspectorUI()
+  call win_gotoid( g:vimspector_session_windows.code )
+  " Clear the existing WinBar created by Vimspector
+  nunmenu WinBar
+  echo "in"
+endfunction
+
+" Debugging
+nmap <leader>c <Plug>VimspectorContinue
+nmap <leader>C <Plug>VimspectorStop
+nmap <leader>x <Plug>VimspectorRestart
+nmap <leader>X :call vimspector#Reset()<CR>
+nmap <leader>b <Plug>VimspectorToggleBreakpoint
+nmap <leader>B :call vimspector#ClearBreakpoints()<CR>
+
+
+" Custom mappings while debuggins {{{
+let s:mapped = {}
+function! s:OnJumpToFrame() abort
+  if has_key( s:mapped, string( bufnr() ) )
+    return
+  endif
+
+  nmap <silent> <buffer> <leader>s <Plug>VimspectorStepOver
+  nmap <silent> <buffer> <leader>S <Plug>VimspectorStepInto
+  nmap <silent> <buffer> <leader>o <Plug>VimspectorStepOut
+  nmap <silent> <buffer> <leader>di <Plug>VimspectorBalloonEval
+  xmap <silent> <buffer> <leader>di <Plug>VimspectorBalloonEval
+
+  let s:mapped[ string( bufnr() ) ] = { 'modifiable': &modifiable }
+
+  setlocal nomodifiable
+
+endfunction
+
+function! s:OnDebugEnd() abort
+
+  let original_buf = bufnr()
+  let hidden = &hidden
+
+  try
+    set hidden
+    for bufnr in keys( s:mapped )
+      try
+        execute 'noautocmd buffer' bufnr
+        silent! nunmap <leader>s
+        silent! nunmap <leader>S
+        silent! nunmap <leader>o
+        silent! nunmap <buffer> <leader>di
+        silent! xunmap <buffer> <leader>di
+
+        let &l:modifiable = s:mapped[ bufnr ][ 'modifiable' ]
+      endtry
+    endfor
+  finally
+    execute 'noautocmd buffer' original_buf
+    let &hidden = hidden
+  endtry
+
+  let s:mapped = {}
+endfunction
+
+augroup TestCustomMappings
+  au!
+  autocmd User VimspectorJumpedToFrame call s:OnJumpToFrame()
+  autocmd User VimspectorDebugEnded call s:OnDebugEnd()
+augroup END
+
+
+augroup MyVimspectorUICustomistaion
+  autocmd!
+  autocmd User VimspectorUICreated call s:CustomizeVimspectorUI()
+augroup END
+
+" Templates
+if has("autocmd")
+  augroup templates
+    autocmd BufNewFile CMakeLists.txt 0r ~/.vim/templates/CMakeLists.txt
+    autocmd BufNewFile .vimspector.json 0r ~/.vim/templates/vimspector.json
+  augroup END
+endif
