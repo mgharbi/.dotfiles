@@ -407,6 +407,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 let g:UltiSnipsExpandTrigger="<C-J>"
 let g:UltiSnipsListSnippets="<C-s>"
 let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
         \ 'name': 'ultisnips',
         \ 'whitelist': ['*'],
@@ -457,10 +458,17 @@ let g:termdebug_wide = 163
 
 " Vimspector customization
 func! s:CustomizeVimspectorUI()
-  call win_gotoid( g:vimspector_session_windows.code )
   " Clear the existing WinBar created by Vimspector
+  call win_gotoid( g:vimspector_session_windows.code )
   nunmenu WinBar
-  echo "in"
+  call win_gotoid( g:vimspector_session_windows.variables )
+  nunmenu WinBar
+  call win_gotoid( g:vimspector_session_windows.watches )
+  nunmenu WinBar
+  call win_gotoid( g:vimspector_session_windows.stack_trace )
+  nunmenu WinBar
+  call win_gotoid( g:vimspector_session_windows.output )
+  nunmenu WinBar
 endfunction
 
 " Debugging
@@ -480,6 +488,8 @@ function! s:OnJumpToFrame() abort
   endif
 
   nmap <silent> <buffer> <leader>s <Plug>VimspectorStepOver
+  nmap <silent> <buffer> <leader>s <Plug>VimspectorStepOver
+  " nmap <silent> <buffer> <leader><leader>s vimspector#RunToCursor()<CR>
   nmap <silent> <buffer> <leader>S <Plug>VimspectorStepInto
   nmap <silent> <buffer> <leader>o <Plug>VimspectorStepOut
   nmap <silent> <buffer> <leader>di <Plug>VimspectorBalloonEval

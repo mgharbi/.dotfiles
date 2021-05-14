@@ -17,17 +17,24 @@
       }
     },
     "C++": {
-      "adapter": "lldb-vscode",
+      "default": true,
       "autoselect": true,
+      "adapter": "CodeLLDB",
       "configuration": {
-        "name": "cpp",
-        "type": "cppdbg",
         "request": "launch",
-        "program": "${cwd}/main",
-        "args": ["*${ProgramArgs}"],
-        "externalConsole": false,
+        "program": "${cwd}/bin/main",
+        "externalConsole": true,
         "stopAtEntry": true,
-        "MIMode": "lldb"
+        "MIMode": "lldb",
+        "logging": {
+          "engineLogging": true
+        }
+      },
+      "breakpoints": {
+        "exception": {
+          "cpp_throw": "N",
+          "cpp_catch": "N"
+        }
       }
     }
   }

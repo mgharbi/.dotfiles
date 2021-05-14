@@ -1,0 +1,31 @@
+snippet cuda "cuda build rule"
+option(CUDA "Use CUDA" OFF)
+if(CUDA)
+  include(CheckLanguage)
+  check_language(CUDA)
+
+  if(CMAKE_CUDA_COMPILER)
+    message("-- CUDA available")
+    enable_language(CUDA)
+    set(TIMPROC_USE_CUDA ON)
+  else()
+    message("-- CUDA unavailable")
+  endif()
+endif()
+endsnippet
+	
+snippet catch "Catch2 Test configuration"
+# Test infrastructure
+include(FetchContent)
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG "v2.13.2"
+)
+FetchContent_MakeAvailable(Catch2)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${Catch2_SOURCE_DIR}/contrib")
+enable_testing()
+include(CTest)
+include(Catch)
+catch_discover_tests(test_binary)
+endsnippet
