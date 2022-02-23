@@ -224,7 +224,7 @@ au BufRead,BufNewFile *.cmake,CMakeLists.txt setf cmake
 
 " compile
 nnoremap <leader>m :!make -j<CR>
-nnoremap <leader><leader>m :!cd build && make -j<CR>
+nnoremap <leader><leader>m :!cmake --build build -j<CR>
 
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq

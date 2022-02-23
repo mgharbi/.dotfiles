@@ -66,7 +66,7 @@ alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 
 # Python
-export PYTHONPATH=:$PYTHONPATH
+# export PYTHONPATH=:$PYTHONPATH
 if (( $+commands[ipython3] )); then
     alias py='nocorrect ipython3'
 else
@@ -99,15 +99,18 @@ export HALIDE_DISTRIB_DIR=$HOME/projects/Halide
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$("$HOME/anaconda/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/mgharbi/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "$HOME/anaconda/etc/profile.d/conda.sh" ]; then
-        . "$HOME/anaconda/etc/profile.d/conda.sh"
+    if [ -f "/home/mgharbi/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/mgharbi/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/anaconda/bin:$PATH"
+        export PATH="/home/mgharbi/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+
+export PATH="$HOME/.poetry/bin:$PATH"
