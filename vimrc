@@ -87,6 +87,7 @@ Plug 'lervag/vimtex'
 Plug 'sheerun/vim-polyglot'
 Plug 'keith/swift.vim'
 Plug 'kentaroi/ultisnips-swift'
+Plug 'tklebanoff/metal-vim'
 
 Plug 'alvan/vim-closetag'
 
@@ -328,17 +329,17 @@ endif
 
 " Python LSP
 " requires 'pip install python-language-server[all]'
-if executable('pyls')
-  augroup lsp_py
-    autocmd!
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python', 'python3'],
-        \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
-        \ })
-  augroup end
-endif
+" if executable('pyls')
+"   augroup lsp_py
+"     autocmd!
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyls',
+"         \ 'cmd': {server_info->['pyls']},
+"         \ 'whitelist': ['python', 'python3'],
+"         \ 'workspace_config': {'pyls': {'plugins': {'pydocstyle': {'enabled': v:true}}}}
+"         \ })
+"   augroup end
+" endif
 
 " Swift LSP
 if executable('sourcekit-lsp')
@@ -487,7 +488,6 @@ function! s:OnJumpToFrame() abort
     return
   endif
 
-  nmap <silent> <buffer> <leader>s <Plug>VimspectorStepOver
   nmap <silent> <buffer> <leader>s <Plug>VimspectorStepOver
   " nmap <silent> <buffer> <leader><leader>s vimspector#RunToCursor()<CR>
   nmap <silent> <buffer> <leader>S <Plug>VimspectorStepInto
