@@ -54,6 +54,7 @@ alias athena='ssh $athena'
 alias vifm='nocorrect vifm'
 alias doc='cd ~/Documents'
 alias gst='git status'
+alias kb='kubectl'
 
 alias zrc='vi ~/.zshrc'
 alias vrc='vi ~/.vimrc'
@@ -97,10 +98,7 @@ function update-x11-forwarding
 
 export HALIDE_DISTRIB_DIR=$HOME/projects/Halide
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-
 export PATH="$HOME/.poetry/bin:$PATH"
 fpath+=~/.zfunc
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
