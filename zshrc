@@ -1,6 +1,7 @@
-platform=`uname`
+platform=$(uname)
 
 fpath+=$HOME/.zsh/pure
+fpath+=$HOME/.zfunc
 
 autoload -U promptinit && promptinit
 prompt pure
@@ -10,24 +11,23 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-
 if [[ $platform == Darwin ]]; then
-  [[ -n '^[[A'      ]]  && bindkey '^[[A' up-line-or-beginning-search
-  [[ -n '^[[B'    ]]  && bindkey '^[[B' down-line-or-beginning-search
+    [[ -n '^[[A' ]] && bindkey '^[[A' up-line-or-beginning-search
+    [[ -n '^[[B' ]] && bindkey '^[[B' down-line-or-beginning-search
 else
-  [[ -n "${key[Up]}"      ]]  && bindkey "${key[Up]}" up-line-or-beginning-search
-  [[ -n "${key[Down]}"    ]]  && bindkey "${key[Down]}" down-line-or-beginning-search
+    [[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" up-line-or-beginning-search
+    [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-beginning-search
 fi
 
 setopt autocd
 setopt appendhistory
 setopt sharehistory
-setopt incappendhistory  
+setopt incappendhistory
 
 # History config
-HISTSIZE=5000               #How many lines of history to keep in memory
-HISTFILE=~/.zsh_history     #Where to save history to disk
-SAVEHIST=5000               #Number of history entries to save to disk
+HISTSIZE=5000           #How many lines of history to keep in memory
+HISTFILE=~/.zsh_history #Where to save history to disk
+SAVEHIST=5000           #Number of history entries to save to disk
 
 # PATH extension
 export PATH="/usr/local/bin":$PATH
@@ -62,10 +62,9 @@ alias todo="vi $HOME/todo.md"
 alias tm="tmux at"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-
 # Python
 export PYTHONPATH=:$PYTHONPATH
-if (( $+commands[ipython3] )); then
+if (($+commands[ipython3])); then
     alias py='nocorrect ipython3'
 else
     alias py='python'
@@ -78,16 +77,15 @@ alias db='lldb'
 # Scripts binding
 alias template='~/.scripts/project_template.py'
 
-if [[ -a $HOME/localenv.sh ]]; then
+if [[ -e $HOME/localenv.sh ]]; then
     source $HOME/localenv.sh
 fi
 
-function update-x11-forwarding
-{
+function update-x11-forwarding {
     if [ -z "$STY" -a -z "$TMUX" ]; then
-        echo $DISPLAY > ~/.display.txt
+        echo $DISPLAY >~/.display.txt
     else
-        export DISPLAY=`cat ~/.display.txt`
+        export DISPLAY=$(cat ~/.display.txt)
     fi
 }
 
@@ -105,6 +103,18 @@ export PATH=$CUDA_HOME/bin:$PATH
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH=$HOME/.local/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# # tcl-tk
+# HOMEBREW_OPT_FOLDER=/opt/homebrew/opt
+# export PATH="$HOMEBREW_OPT_FOLDER/tcl-tk/bin:$PATH"
+# export LDFLAGS="-L$HOMEBREW_OPT_FOLDER/tcl-tk/lib"
+# export CPPFLAGS="-I$HOMEBREW_OPT_FOLDER/tcl-tk/include"
+# export PKG_CONFIG_PATH="$HOMEBREW_OPT_FOLDER/tcl-tk/lib/pkgconfig"
+# export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I$HOMEBREW_OPT_FOLDER/tcl-tk/include' --with-tcltk-libs='-L$HOMEBREW_OPT_FOLDER/tcl-tk/lib -ltcl8.6 -ltk8.6'"
+
+autoload -Uz compinit
+zstyle ':completion:*' menu select
