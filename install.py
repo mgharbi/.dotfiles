@@ -72,7 +72,7 @@ def main():
     for f in files:
         link = os.path.join(home_dir, "." + f)
         #if not os.path.exists(link) and not os.path.islink(link):
-        os.remove(link)
+        #os.remove(link)
         os.symlink(os.path.join(dotfiles_dir, f), link)
         print("  + %s linked" % f)
 
