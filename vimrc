@@ -31,6 +31,8 @@ set redrawtime=5000
 
 call plug#begin('~/.vim/plugged')
 
+set termguicolors
+
 " Language server protocol
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -47,7 +49,7 @@ Plug 'Konfekt/FastFold'
 
 " UI
 Plug 'itchyny/lightline.vim'
-Plug 'bagrat/vim-buffet'
+" Plug 'bagrat/vim-buffet'
 
 " Snippets async
 Plug 'vim-scripts/tComment'
@@ -70,13 +72,14 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'ayu-theme/ayu-vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 Plug 'godlygeek/tabular'
 
@@ -94,6 +97,9 @@ Plug 'alvan/vim-closetag'
 " Alternate header/src
 Plug 'vim-scripts/a.vim', {'for': ['cpp', 'c']}
 
+Plug 'augmentcode/augment.vim'
+
+
 call plug#end()
 
 " filetype plugin indent on
@@ -103,7 +109,7 @@ call plug#end()
 set noshowmode
 set laststatus=2
 let g:lightline = {
-     \ 'colorscheme': 'solarized',
+     \ 'colorscheme': 'ayu',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste'],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -112,14 +118,13 @@ let g:lightline = {
       \              [ 'filetype'], ['charvaluehex' ] ]
       \ },
       \ 'enable' : {
-      \     'tabline': 0
+      \     'tabline': 1
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-let g:lightline.enable.tabline = 0
-let g:buffet_modified_icon	= ' +'
+" let g:buffet_modified_icon	= ' +'
 
 
 " Folding
@@ -163,10 +168,15 @@ set regexpengine=1
 syntax on                       " Use color syntax highlighting.
 let python_highlight_all=1
 filetype plugin on
-set bg=dark
+" set bg=dark
 " Fix gutter
-autocmd ColorScheme * highlight! link SignColumn Normal
-colorscheme solarized
+" autocmd ColorScheme * highlight! link SignColumn Normal
+" let ayucolor="dark"
+" let ayucolor="light"
+" let ayucolor="mirage"
+" set bg=dark
+colorscheme ayu
+" colorscheme solarized
 
 " Undo/history 
 set history=1000
@@ -276,8 +286,6 @@ au BufRead,BufNewFile *.jinja set filetype=django
 
 " Vertical vimdif
 set diffopt+=vertical
-
-set bg=dark
 
 " Tab related
 " set expandtab
