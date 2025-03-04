@@ -4,7 +4,7 @@
 	ui = true
 [user]
 	name = Michael Gharbi
-	email = mgharbi@adobe.com
+	email = michael.yanis.gharbi@gmail.com
 [diff]
 	tool = vimdiff
 [merge]
@@ -34,3 +34,5 @@
 	rebase = false
 [init]
 	defaultBranch = main
+[rebase]
+	autoStash = true
