@@ -3,6 +3,8 @@ platform=$(uname)
 fpath+=$HOME/.zsh/pure
 fpath+=$HOME/.zfunc
 
+autoload -U +X compinit && compinit
+zstyle ':completion:*' menu select
 autoload -U promptinit && promptinit
 prompt pure
 
@@ -51,6 +53,7 @@ alias athena='ssh $athena'
 alias vifm='nocorrect vifm'
 alias doc='cd ~/Documents'
 alias gst='git status'
+alias gf='git fetch -a -v'
 alias kb='kubectl'
 
 alias zrc='vi ~/.zshrc'
@@ -100,13 +103,12 @@ export CUDA_HOME="/usr/local/cuda"
 export PATH=$CUDA_HOME/bin:$PATH
 
 # PYTHON
-export PATH="$HOME/.poetry/bin:$PATH"
 export PATH=$HOME/.local/bin:$PATH
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # # tcl-tk
 # HOMEBREW_OPT_FOLDER=/opt/homebrew/opt
@@ -116,5 +118,39 @@ eval "$(pyenv virtualenv-init -)"
 # export PKG_CONFIG_PATH="$HOMEBREW_OPT_FOLDER/tcl-tk/lib/pkgconfig"
 # export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I$HOMEBREW_OPT_FOLDER/tcl-tk/include' --with-tcltk-libs='-L$HOMEBREW_OPT_FOLDER/tcl-tk/lib -ltcl8.6 -ltk8.6'"
 
-autoload -Uz compinit
-zstyle ':completion:*' menu select
+
+export WANDB_API_KEY=945cb1631628a26959caf767dd7f99519e798bdf
+export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+
+alias gc=gcloud
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+        . "/opt/conda/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/conda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/mnt/userspace/mgharbi/downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/mnt/userspace/mgharbi/downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/mnt/userspace/mgharbi/downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/mnt/userspace/mgharbi/downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+export CONDA_ENVS_PATH="$HOME/.conda/envs/"
+
+alias qu-install="pip3 install git+ssh://git@github.com/reve-ai/queryfile-util.git"
+alias gs="gcloud storage"
+
+source $HOME/anthropic_api_key.sh
+source $HOME/fal_key.sh
